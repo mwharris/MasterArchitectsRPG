@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\mharr\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\mharr\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_RPG.2069265254.00" t="ExcludeRecursive" />
+    <e p="C:\Users\mharr\Documents\Unity Projects\RPG" t="IncludeRecursive">
+      <e p="Assets" t="Include">
+        <e p="EditMode Tests" t="Include">
+          <e p="EditMode Tests.asmdef" t="Include" />
+          <e p="NewTestScript.cs" t="Include" />
+        </e>
+        <e p="PlayMode Tests" t="Include">
+          <e p="A_Moving_Cube.cs" t="Include" />
+          <e p="PlayMode Tests.asmdef" t="Include" />
+          <e p="With_Positive_Vertical_Input.cs" t="Include" />
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="Player.cs" t="Include" />
+          <e p="Scripts.asmdef" t="Include" />
+        </e>
+      </e>
+      <e p="EditModeTests.csproj" t="IncludeRecursive" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="PlayModeTests.csproj" t="IncludeRecursive" />
+      <e p="RPG.sln" t="IncludeFlat" />
+      <e p="Scripts.csproj" t="IncludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
