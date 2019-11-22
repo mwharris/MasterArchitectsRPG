@@ -7,7 +7,7 @@ public class Inventory : MonoBehaviour
     
     private List<Item> _items = new List<Item>();
     private Transform _itemRoot;
-    private Item ActiveItem { get; private set; }
+    public Item ActiveItem { get; private set; }
     
     void Awake()
     {
@@ -21,7 +21,7 @@ public class Inventory : MonoBehaviour
         // Add the item to our list of items
         _items.Add(item);
         // Child it to this game object
-        item.transform.parent = _itemRoot;
+        item.transform.parent = _itemRoot;    
 
         // Equip this item
         Equip(item);

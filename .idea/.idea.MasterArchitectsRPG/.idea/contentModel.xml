@@ -11,8 +11,8 @@
         </e>
         <e p="PlayMode Tests" t="Include">
           <e p="A_Moving_Cube.cs" t="Include" />
+          <e p="A_Player.cs" t="Include" />
           <e p="PlayMode Tests.asmdef" t="Include" />
-          <e p="With_Positive_Vertical_Input.cs" t="Include" />
         </e>
         <e p="Scripts" t="Include">
           <e p="IMover.cs" t="Include" />
