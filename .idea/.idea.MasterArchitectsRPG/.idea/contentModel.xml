@@ -19,9 +19,12 @@
           <e p="Inventory" t="Include">
             <e p="CubeSpawner.cs" t="Include" />
             <e p="Inventory.cs" t="Include" />
+            <e p="InventoryUse.cs" t="Include" />
             <e p="Item.cs" t="Include" />
             <e p="ItemComponent.cs" t="Include" />
             <e p="ItemLogger.cs" t="Include" />
+            <e p="UseAction.cs" t="Include" />
+            <e p="UseMode.cs" t="Include" />
           </e>
           <e p="IPlayerInput.cs" t="Include" />
           <e p="Mover.cs" t="Include" />

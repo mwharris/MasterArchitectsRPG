@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ItemLogger : ItemComponent
 {
-    protected override void Use()
+    public override void Use()
     {
         Debug.Log("Item Used!");
     }
