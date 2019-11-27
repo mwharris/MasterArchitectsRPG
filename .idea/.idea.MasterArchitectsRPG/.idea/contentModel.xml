@@ -17,8 +17,11 @@
         <e p="Scripts" t="Include">
           <e p="IMover.cs" t="Include" />
           <e p="Inventory" t="Include">
+            <e p="CubeSpawner.cs" t="Include" />
             <e p="Inventory.cs" t="Include" />
             <e p="Item.cs" t="Include" />
+            <e p="ItemComponent.cs" t="Include" />
+            <e p="ItemLogger.cs" t="Include" />
           </e>
           <e p="IPlayerInput.cs" t="Include" />
           <e p="Mover.cs" t="Include" />
