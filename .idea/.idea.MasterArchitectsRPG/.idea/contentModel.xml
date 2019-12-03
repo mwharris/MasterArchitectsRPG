@@ -23,6 +23,7 @@
             <e p="Item.cs" t="Include" />
             <e p="ItemComponent.cs" t="Include" />
             <e p="ItemLogger.cs" t="Include" />
+            <e p="ItemRaycast.cs" t="Include" />
             <e p="UseAction.cs" t="Include" />
             <e p="UseMode.cs" t="Include" />
           </e>
