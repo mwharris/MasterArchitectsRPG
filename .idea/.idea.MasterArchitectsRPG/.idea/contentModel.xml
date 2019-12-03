@@ -15,6 +15,9 @@
           <e p="PlayMode Tests.asmdef" t="Include" />
         </e>
         <e p="Scripts" t="Include">
+          <e p="Camera" t="Include">
+            <e p="CameraController.cs" t="Include" />
+          </e>
           <e p="IMover.cs" t="Include" />
           <e p="Inventory" t="Include">
             <e p="CubeSpawner.cs" t="Include" />
