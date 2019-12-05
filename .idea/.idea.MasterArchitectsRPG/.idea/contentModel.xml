@@ -18,6 +18,9 @@
           <e p="Camera" t="Include">
             <e p="CameraController.cs" t="Include" />
           </e>
+          <e p="Crosshair" t="Include">
+            <e p="Crosshair.cs" t="Include" />
+          </e>
           <e p="IMover.cs" t="Include" />
           <e p="Inventory" t="Include">
             <e p="CubeSpawner.cs" t="Include" />

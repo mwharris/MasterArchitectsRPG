@@ -1,13 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    public event Action<Item> ActiveItemChanged;
+    
     [SerializeField] private Transform _rightHand;
     
     private List<Item> _items = new List<Item>();
     private Transform _itemRoot;
+    
     public Item ActiveItem { get; private set; }
+    
     
     void Awake()
     {
@@ -33,5 +38,9 @@ public class Inventory : MonoBehaviour
         item.transform.localPosition = Vector3.zero;
         item.transform.localRotation = Quaternion.identity;
         ActiveItem = item;
+
+        // Invoke the Event if the Event is not null
+        ActiveItemChanged?.Invoke(ActiveItem);
     }
+
 }

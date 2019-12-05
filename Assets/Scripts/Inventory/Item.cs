@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
 public class Item : MonoBehaviour
 {
+    [SerializeField] private CrosshairMode _crosshairMode;
+    public CrosshairMode CrosshairMode => _crosshairMode;
     
     [SerializeField] private UseAction[] _actions;
     public UseAction[] Actions => _actions;
