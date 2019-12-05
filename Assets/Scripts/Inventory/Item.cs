@@ -3,8 +3,8 @@
 [RequireComponent(typeof(Collider))]
 public class Item : MonoBehaviour
 {
-    [SerializeField] private CrosshairMode _crosshairMode;
-    public CrosshairMode CrosshairMode => _crosshairMode;
+    [SerializeField] private CrosshairDefinition _crosshairDefinition;
+    public CrosshairDefinition CrosshairDefinition => _crosshairDefinition;
     
     [SerializeField] private UseAction[] _actions;
     public UseAction[] Actions => _actions;

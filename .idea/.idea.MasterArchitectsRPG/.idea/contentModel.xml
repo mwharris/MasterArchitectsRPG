@@ -20,6 +20,7 @@
           </e>
           <e p="Crosshair" t="Include">
             <e p="Crosshair.cs" t="Include" />
+            <e p="CrosshairDefinition.cs" t="Include" />
           </e>
           <e p="IMover.cs" t="Include" />
           <e p="Inventory" t="Include">
