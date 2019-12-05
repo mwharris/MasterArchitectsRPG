@@ -20,6 +20,13 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        UpdateMovementMethod();
+        _mover.Tick();
+        _rotator.Tick();
+    }
+
+    private void UpdateMovementMethod()
+    {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _mover = new Mover(this);
@@ -28,7 +35,5 @@ public class Player : MonoBehaviour
         {
             _mover = new NavmeshMover(this);
         }
-        _mover.Tick();
-        _rotator.Tick();
     }
 }

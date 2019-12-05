@@ -21,8 +21,7 @@ public class Inventory : MonoBehaviour
         // Add the item to our list of items
         _items.Add(item);
         // Child it to this game object
-        item.transform.parent = _itemRoot;    
-
+        item.transform.parent = _itemRoot;
         // Equip this item
         Equip(item);
     }
