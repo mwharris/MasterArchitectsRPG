@@ -195,7 +195,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 5.385437}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 2.1e-44}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -247,6 +247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crosshairDefinition: {fileID: 0}
   _actions: []
+  _icon: {fileID: 0}
 --- !u!65 &875538831
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -394,6 +395,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: d045de6426fa1ef4f84b85d763699267,
         type: 2}
+    - target: {fileID: 7153437334682157550, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
+        type: 3}
+      propertyPath: _icon
+      value: 
+      objectReference: {fileID: 21300000, guid: cb2cc81ce8197954c86bba833954ddf5,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6e64ccb6a2c45e4c9af85a96efdfc09, type: 3}
 --- !u!1 &1251738736
@@ -654,6 +661,12 @@ PrefabInstance:
       propertyPath: _crosshairDefinition
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7153437334682157550, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
+        type: 3}
+      propertyPath: _icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 83daf31c0d99122498869995fbf1f79f,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6e64ccb6a2c45e4c9af85a96efdfc09, type: 3}
 --- !u!1001 &526885846029910308
@@ -723,6 +736,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7153437334682157550, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
+        type: 3}
+      propertyPath: _icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 9f758fdc3d00be24b83f5e0c61885736,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6e64ccb6a2c45e4c9af85a96efdfc09, type: 3}
 --- !u!1001 &6827829799592188694

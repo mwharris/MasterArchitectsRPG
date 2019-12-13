@@ -25,7 +25,6 @@ public class Crosshair : MonoBehaviour
         if (item != null && item.CrosshairDefinition != null)
         {
             _crosshairImage.sprite = item.CrosshairDefinition.Sprite;
-            Debug.Log($"Crosshair detected: {item.CrosshairDefinition}");
         }
         else
         {

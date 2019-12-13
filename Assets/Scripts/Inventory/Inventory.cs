@@ -5,6 +5,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public event Action<Item> ActiveItemChanged;
+    public event Action<Item> ItemPickedUp;
     
     [SerializeField] private Transform _rightHand;
     
@@ -12,8 +13,8 @@ public class Inventory : MonoBehaviour
     private Transform _itemRoot;
     
     public Item ActiveItem { get; private set; }
-    
-    
+
+
     void Awake()
     {
         // Create our item root as a child of this game object
@@ -29,6 +30,9 @@ public class Inventory : MonoBehaviour
         item.transform.parent = _itemRoot;
         // Equip this item
         Equip(item);
+        
+        ItemPickedUp?.Invoke(item);
+        
     }
 
     private void Equip(Item item)
