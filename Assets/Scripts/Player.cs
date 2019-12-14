@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
+        PlayerInput.MovementMethodChanged += UpdateMovementMethod;
+        
         _characterController = GetComponent<CharacterController>();
         _mover = new Mover(this);
         _rotator = new Rotator(this);
@@ -20,20 +22,20 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        UpdateMovementMethod();
         _mover.Tick();
         _rotator.Tick();
+        PlayerInput.Tick();
     }
 
     private void UpdateMovementMethod()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            _mover = new Mover(this);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (_mover is Mover)
         {
             _mover = new NavmeshMover(this);
+        }
+        else
+        {
+            _mover = new Mover(this);
         }
     }
 }

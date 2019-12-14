@@ -35,7 +35,7 @@ public class Inventory : MonoBehaviour
         
     }
 
-    private void Equip(Item item)
+    public void Equip(Item item)
     {
         // Place this item underneath our right hand
         item.transform.SetParent(_rightHand);
