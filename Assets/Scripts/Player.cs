@@ -30,12 +30,8 @@ public class Player : MonoBehaviour
     private void UpdateMovementMethod()
     {
         if (_mover is Mover)
-        {
             _mover = new NavmeshMover(this);
-        }
         else
-        {
             _mover = new Mover(this);
-        }
     }
 }

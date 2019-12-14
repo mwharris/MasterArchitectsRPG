@@ -24,18 +24,14 @@ public class PlayerInput : IPlayerInput
         for (int i = 0; i < 9; i++)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
-            {
                 HotkeyPressed?.Invoke(i);
-            }
         }
     }
 
     private void DetectMoveMethodInput()
     {
-        if (Input.GetKeyDown(KeyCode.Comma))
-        {
+        if (Input.GetKeyDown(KeyCode.Minus))
             MovementMethodChanged?.Invoke();
-        }
     }
     
 }

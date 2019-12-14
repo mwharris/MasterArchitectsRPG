@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Hotbar : MonoBehaviour
 {
@@ -14,6 +15,12 @@ public class Hotbar : MonoBehaviour
         _inventory = FindObjectOfType<Inventory>();
         _inventory.ItemPickedUp += ItemPickedUp;
         _slots = GetComponentsInChildren<Slot>();
+    }
+
+    private void OnDisable()
+    {
+        _player.PlayerInput.HotkeyPressed -= HotkeyPressed;
+        _inventory.ItemPickedUp -= ItemPickedUp;
     }
 
     private void HotkeyPressed(int index)
