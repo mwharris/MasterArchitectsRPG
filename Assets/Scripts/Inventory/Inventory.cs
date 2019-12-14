@@ -30,7 +30,7 @@ public class Inventory : MonoBehaviour
         item.transform.parent = _itemRoot;
         // Equip this item
         Equip(item);
-        
+        // Notify subcribers that we picked up a new item
         ItemPickedUp?.Invoke(item);
         
     }
