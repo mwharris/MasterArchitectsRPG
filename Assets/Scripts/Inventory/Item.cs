@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
 public class Item : MonoBehaviour
@@ -35,5 +36,27 @@ public class Item : MonoBehaviour
         {
             collider.isTrigger = true;
         }
+    }
+}
+
+[CustomEditor(typeof(Item))]
+public class ItemEditor : Editor
+{
+    // Runs when the inspector draws for the selected script
+    // In this case the selected script is Item (see CustomEditor)
+    public override void OnInspectorGUI()
+    {
+        Item item = (Item) target;
+
+        SerializedProperty sIcon = serializedObject.FindProperty("_icon");
+
+        Rect iconRect = EditorGUILayout.BeginHorizontal("Testing");
+        EditorGUILayout.PropertyField(sIcon, new GUIContent("Icon"), GUILayout.Height(20));
+        GUILayout.Box(item.Icon.texture, GUILayout.Width(60), GUILayout.Height(60));
+        EditorGUILayout.EndHorizontal();
+
+        base.OnInspectorGUI();
+        
+        serializedObject.ApplyModifiedProperties();
     }
 }
