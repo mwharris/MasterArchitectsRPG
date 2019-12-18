@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -48,15 +49,98 @@ public class ItemEditor : Editor
     {
         Item item = (Item) target;
 
-        SerializedProperty sIcon = serializedObject.FindProperty("_icon");
+        DrawIcon(item);
+        DrawCrosshair(item);
+        DrawActions();
+    }
 
-        Rect iconRect = EditorGUILayout.BeginHorizontal("Testing");
-        EditorGUILayout.PropertyField(sIcon, new GUIContent("Icon"), GUILayout.Height(20));
-        GUILayout.Box(item.Icon.texture, GUILayout.Width(60), GUILayout.Height(60));
+    private void DrawIcon(Item item)
+    {
+        EditorGUILayout.BeginHorizontal("Icon");
+        EditorGUILayout.LabelField("Icon", GUILayout.Width(120));
+        if (item?.Icon != null)
+        {
+            GUILayout.Box(item.Icon.texture, GUILayout.Width(60), GUILayout.Height(60));
+        }
+        else
+        {
+            EditorGUILayout.HelpBox("No Icon Selected", MessageType.Warning);
+        }
+
+        using (SerializedProperty property = serializedObject.FindProperty("_icon"))
+        {
+            Sprite sprite = (Sprite) EditorGUILayout.ObjectField(item.Icon, typeof(Sprite), false);
+            property.objectReferenceValue = sprite;
+            serializedObject.ApplyModifiedProperties();
+        }
+
         EditorGUILayout.EndHorizontal();
+    }
 
-        base.OnInspectorGUI();
-        
-        serializedObject.ApplyModifiedProperties();
+    private void DrawCrosshair(Item item)
+    {
+        EditorGUILayout.BeginHorizontal("Crosshair");
+        EditorGUILayout.LabelField("Crosshair", GUILayout.Width(120));
+        if (item.CrosshairDefinition?.Sprite != null)
+        {
+            GUILayout.Box(item.CrosshairDefinition.Sprite.texture, GUILayout.Width(60), GUILayout.Height(60));
+        }
+        else
+        {
+            EditorGUILayout.HelpBox("No Crosshair Selected", MessageType.Warning);
+        }
+
+        using (SerializedProperty property = serializedObject.FindProperty("_crosshairDefinition"))
+        {
+            CrosshairDefinition crosshairDefinition = (CrosshairDefinition) EditorGUILayout.ObjectField(
+                item.CrosshairDefinition,
+                typeof(CrosshairDefinition),
+                false
+            );
+            property.objectReferenceValue = crosshairDefinition;
+            serializedObject.ApplyModifiedProperties();
+        }
+
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void DrawActions()
+    {
+        using (SerializedProperty actionsProperty = serializedObject.FindProperty("_actions"))
+        {
+            // Loop through every UseAction in the array
+            for (int i = 0; i < actionsProperty.arraySize; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+                // Create an X button to remove an array element at a given index
+                if (GUILayout.Button("x", GUILayout.Width(20)))
+                {
+                    actionsProperty.DeleteArrayElementAtIndex(i);
+                    serializedObject.ApplyModifiedProperties();
+                    break;
+                }
+
+                // Get our UseAction as a SerializedProperty
+                SerializedProperty action = actionsProperty.GetArrayElementAtIndex(i);
+                if (action != null)
+                {
+                    // Get the UseMode and TargetComponent properties relative to the UseAction property
+                    SerializedProperty useModeProperty = action.FindPropertyRelative("UseMode");
+                    SerializedProperty targetComponentProperty = action.FindPropertyRelative("TargetComponent");
+
+                    // Create an enum popup bound to our UseMode property enum value
+                    useModeProperty.enumValueIndex = (int) (UseMode) EditorGUILayout.EnumPopup(
+                        (UseMode) useModeProperty.enumValueIndex,
+                        GUILayout.Width(80)
+                    );
+
+                    EditorGUILayout.PropertyField(targetComponentProperty, GUIContent.none, false);
+
+                    serializedObject.ApplyModifiedProperties();
+                }
+
+                EditorGUILayout.EndHorizontal();
+            }
+        }
     }
 }
