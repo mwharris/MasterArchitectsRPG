@@ -57,7 +57,7 @@ public class ItemEditor : Editor
 
     private void DrawIcon(Item item)
     {
-        EditorGUILayout.BeginHorizontal("Icon");
+        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Icon", GUILayout.Width(120));
         if (item?.Icon != null)
         {
@@ -80,7 +80,7 @@ public class ItemEditor : Editor
 
     private void DrawCrosshair(Item item)
     {
-        EditorGUILayout.BeginHorizontal("Crosshair");
+        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Crosshair", GUILayout.Width(120));
         if (item.CrosshairDefinition?.Sprite != null)
         {

@@ -6,9 +6,11 @@ public class ItemRaycast : ItemComponent
 {
     [SerializeField] private float _delay = 0.1f;
     [SerializeField] private float _range = 10f;
+    [SerializeField] private int _damage = 1;
     
     private RaycastHit[] _results = new RaycastHit[100];
     private int _layerMask;
+    
 
     void Awake()
     {
@@ -42,10 +44,8 @@ public class ItemRaycast : ItemComponent
         // Spawn a cube at the nearest hit location
         if (nearest.transform != null)
         {
-            Transform hitCube = GameObject.CreatePrimitive(PrimitiveType.Cube).transform;
-            hitCube.GetComponent<Renderer>().material.color = Color.red;
-            hitCube.transform.localScale = (Vector3.one / 10);
-            hitCube.transform.position = nearest.point;
+            var takeHits = nearest.collider.GetComponent<ITakeHits>();
+            takeHits?.TakeHit(_damage);
         }
     }
 }
