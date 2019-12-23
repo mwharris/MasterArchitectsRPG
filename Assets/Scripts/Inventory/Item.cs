@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 
@@ -51,7 +52,7 @@ public class ItemEditor : Editor
 
         DrawIcon(item);
         DrawCrosshair(item);
-        DrawActions();
+        DrawActions(item);
     }
 
     private void DrawIcon(Item item)
@@ -104,7 +105,7 @@ public class ItemEditor : Editor
         EditorGUILayout.EndHorizontal();
     }
 
-    private void DrawActions()
+    private void DrawActions(Item item)
     {
         using (SerializedProperty actionsProperty = serializedObject.FindProperty("_actions"))
         {
@@ -140,6 +141,48 @@ public class ItemEditor : Editor
                 }
 
                 EditorGUILayout.EndHorizontal();
+            }
+
+            CreateAutoAssignButton(item, actionsProperty);
+        }
+    }
+
+    private void CreateAutoAssignButton(Item item, SerializedProperty actionsProperty)
+    {
+        // A button to auto-assign ItemComponents that are not yet set up
+        if (GUILayout.Button("Auto Assign Actions"))
+        {
+            // Determine what ItemComponents are already assigned in our UseActions
+            List<ItemComponent> assignedItemComponents = new List<ItemComponent>();
+            // We loop through our current list of UseActions
+            for (int i = 0; i < actionsProperty.arraySize; i++)
+            {
+                // Get the current UseAction
+                SerializedProperty action = actionsProperty.GetArrayElementAtIndex(i);
+                if (action != null)
+                {
+                    // Get the ItemComponent on this UseAction
+                    SerializedProperty targetComponentProperty = action.FindPropertyRelative("TargetComponent");
+                    // Add it to our running list
+                    ItemComponent assignedItemComponent = targetComponentProperty.objectReferenceValue as ItemComponent;
+                    assignedItemComponents.Add(assignedItemComponent);
+                }
+            }
+
+            // Loop through the list of ItemComponents are attached to the object
+            foreach (ItemComponent itemComponent in item.GetComponentsInChildren<ItemComponent>())
+            {
+                // Find ones that are not in our list of already assigned ItemComponents
+                if (!assignedItemComponents.Contains(itemComponent))
+                {
+                    // Insert a new UseAction into our array of UseActions
+                    actionsProperty.InsertArrayElementAtIndex(actionsProperty.arraySize);
+                    SerializedProperty targetAction = actionsProperty.GetArrayElementAtIndex(actionsProperty.arraySize - 1);
+                    // Set it's ItemComponent to this attached ItemComponent
+                    SerializedProperty targetItemComponent = targetAction.FindPropertyRelative("TargetComponent");
+                    targetItemComponent.objectReferenceValue = itemComponent;
+                    serializedObject.ApplyModifiedProperties();
+                }
             }
         }
     }
