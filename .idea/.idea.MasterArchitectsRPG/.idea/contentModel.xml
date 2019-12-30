@@ -43,6 +43,14 @@
           <e p="PlayerInput.cs" t="Include" />
           <e p="Rotator.cs" t="Include" />
           <e p="Scripts.asmdef" t="Include" />
+          <e p="StateMachine" t="Include">
+            <e p="Attack.cs" t="Include" />
+            <e p="ChasePlayer.cs" t="Include" />
+            <e p="EntityStateMachine.cs" t="Include" />
+            <e p="Idle.cs" t="Include" />
+            <e p="IState.cs" t="Include" />
+            <e p="StateMachine.cs" t="Include" />
+          </e>
           <e p="UI" t="Include">
             <e p="Crosshair.cs" t="Include" />
             <e p="CrosshairDefinition.cs" t="Include" />
