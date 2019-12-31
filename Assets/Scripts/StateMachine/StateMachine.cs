@@ -7,7 +7,8 @@ public class StateMachine
     private Dictionary<IState, List<StateTransition>> _stateTransitions = new Dictionary<IState, List<StateTransition>>();
     private List<IState> _states = new List<IState>();
     private IState _currentState;
-    
+    public IState CurrentState => _currentState;
+
     public void Tick()
     {
         // Transition to a new State if any of our current State's transition conditions are met

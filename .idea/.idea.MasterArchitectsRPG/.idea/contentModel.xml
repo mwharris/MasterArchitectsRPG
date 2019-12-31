@@ -6,8 +6,8 @@
     <e p="C:\Users\mharr\Documents\Unity Projects\MasterArchitectsRPG" t="IncludeRecursive">
       <e p="Assets" t="Include">
         <e p="EditMode Tests" t="Include">
+          <e p="Base_State_Machine.cs" t="Include" />
           <e p="EditMode Tests.asmdef" t="Include" />
-          <e p="NewTestScript.cs" t="Include" />
         </e>
         <e p="PlayMode Tests" t="Include">
           <e p="A_Moving_Cube.cs" t="Include" />
