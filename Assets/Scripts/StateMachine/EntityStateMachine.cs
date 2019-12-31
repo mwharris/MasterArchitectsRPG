@@ -10,6 +10,8 @@ public class EntityStateMachine : MonoBehaviour
 
     private void Awake()
     {
+        var player = FindObjectOfType<Player>();
+        
         _stateMachine = new StateMachine();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         
@@ -20,6 +22,20 @@ public class EntityStateMachine : MonoBehaviour
         _stateMachine.Add(idle);
         _stateMachine.Add(chasePlayer);
         _stateMachine.Add(attack);
+
+        // Idle -> Chase
+        _stateMachine.AddTransition(
+            idle, 
+            chasePlayer, 
+            () => Vector3.Distance(_navMeshAgent.transform.position, player.transform.position) < 5f
+        );
+        
+        // Chase -> Attack
+        _stateMachine.AddTransition(
+            chasePlayer, 
+            attack, 
+            () => Vector3.Distance(_navMeshAgent.transform.position, player.transform.position) < 3f
+        );
         
         _stateMachine.SetState(idle);
     }
