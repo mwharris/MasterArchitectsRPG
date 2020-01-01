@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.PlayerLoop;
+using Vector3 = UnityEngine.Vector3;
 
 public class EntityStateMachine : MonoBehaviour
 {
     private StateMachine _stateMachine;
     private NavMeshAgent _navMeshAgent;
+
+    public Type CurrentStateType => _stateMachine.CurrentState.GetType();
 
     private void Awake()
     {
@@ -27,19 +30,24 @@ public class EntityStateMachine : MonoBehaviour
         _stateMachine.AddTransition(
             idle, 
             chasePlayer, 
-            () => Vector3.Distance(_navMeshAgent.transform.position, player.transform.position) < 5f
+            () => DistanceFlat(_navMeshAgent.transform.position, player.transform.position) < 5f
         );
         
         // Chase -> Attack
         _stateMachine.AddTransition(
             chasePlayer, 
             attack, 
-            () => Vector3.Distance(_navMeshAgent.transform.position, player.transform.position) < 3f
+            () => DistanceFlat(_navMeshAgent.transform.position, player.transform.position) < 2f
         );
         
         _stateMachine.SetState(idle);
     }
 
+    private float DistanceFlat(Vector3 source, Vector3 destination)
+    {
+        return Vector3.Distance(new Vector3(source.x, 0, source.z), new Vector3(destination.x, 0, destination.z));
+    }
+    
     private void Update()
     {
         _stateMachine.Tick();

@@ -12,6 +12,7 @@
         <e p="PlayMode Tests" t="Include">
           <e p="A_Moving_Cube.cs" t="Include" />
           <e p="A_Player.cs" t="Include" />
+          <e p="Entity_State_Machine.cs" t="Include" />
           <e p="Moving_Into_An_Item.cs" t="Include" />
           <e p="PlayMode Tests.asmdef" t="Include" />
         </e>

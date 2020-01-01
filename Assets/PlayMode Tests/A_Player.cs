@@ -20,6 +20,15 @@ namespace A_Player
             }
         }
         
+        public static IEnumerator LoadEntityStateMachineTestsScene()
+        {
+            var operation = SceneManager.LoadSceneAsync("EntityStateMachineTests");
+            while (!operation.isDone)
+            {
+                yield return null;
+            }
+        }
+        
         public static IEnumerator LoadItemTestScene()
         {
             var operation = SceneManager.LoadSceneAsync("ItemTests");
