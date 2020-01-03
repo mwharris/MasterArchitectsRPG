@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
 
-public class Idle : IState
+public class Dead : IState
 {
     public void Tick()
     {

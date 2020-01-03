@@ -34,6 +34,14 @@ public class Entity : MonoBehaviour, ITakeHits
     private void Die()
     {
         OnDied?.Invoke();
-        Debug.Log("WE DED!");
+    }
+
+    // Helper function to test when our player dies.
+    // ContextMenu() puts an option in the right-click menu that will call this function when clicked.
+    // TODO: Would this be better in ITakeHits?...
+    [ContextMenu("Take Lethal Damage")]
+    private void TakeLethalDamage()
+    {
+        TakeHit(Health);
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class StateMachine
 {
     private Dictionary<IState, List<StateTransition>> _stateTransitions = new Dictionary<IState, List<StateTransition>>();
+    private List<StateTransition> _anyStateTransitions = new List<StateTransition>();
+    
     private List<IState> _states = new List<IState>();
     private IState _currentState;
     public IState CurrentState => _currentState;
@@ -17,7 +19,6 @@ public class StateMachine
         {
             SetState(transition.To);
         }
-        
         _currentState.Tick();
     }
 
@@ -53,10 +54,24 @@ public class StateMachine
         _stateTransitions[from].Add(stateTransition);
     }
     
+    public void AddAnyTransition(IState to, Func<bool> condition)
+    {
+        StateTransition stateTransition = new StateTransition(null, to, condition);
+        _anyStateTransitions.Add(stateTransition);
+    }
+    
     // Check if the current State has met a State Transition condition.
     // Return that State Transition if so.
     private StateTransition CheckForTransition()
     {
+        // TODO: Refactor this re-used foreach out to it's own method
+        foreach (var anyTransition in _anyStateTransitions)
+        {
+            if (anyTransition.Condition())
+            {
+                return anyTransition;
+            }
+        }
         if (_stateTransitions.ContainsKey(_currentState))
         {
             foreach (var stateTransition in _stateTransitions[_currentState])
@@ -69,4 +84,5 @@ public class StateMachine
         }
         return null;
     }
+
 }

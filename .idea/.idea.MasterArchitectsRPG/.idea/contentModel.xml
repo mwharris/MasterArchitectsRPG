@@ -47,6 +47,7 @@
           <e p="StateMachine" t="Include">
             <e p="Attack.cs" t="Include" />
             <e p="ChasePlayer.cs" t="Include" />
+            <e p="Dead.cs" t="Include" />
             <e p="EntityStateMachine.cs" t="Include" />
             <e p="Idle.cs" t="Include" />
             <e p="IState.cs" t="Include" />

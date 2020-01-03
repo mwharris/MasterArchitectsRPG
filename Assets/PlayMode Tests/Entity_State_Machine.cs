@@ -35,5 +35,24 @@ namespace State_Machine
             yield return null;
             Assert.AreEqual(typeof(ChasePlayer), stateMachine.CurrentStateType);
         }
+        
+        [UnityTest]
+        public IEnumerator Switches_To_Dead_Only_When_HP_Is_Zero()
+        {
+            yield return Helpers.LoadEntityStateMachineTestsScene();
+
+            EntityStateMachine stateMachine = GameObject.FindObjectOfType<EntityStateMachine>();
+            Entity entity = stateMachine.GetComponent<Entity>();
+
+            // Check that we start in the Idle state
+            entity.TakeHit(entity.Health - 1);
+            yield return null;
+            Assert.AreEqual(typeof(Idle), stateMachine.CurrentStateType);
+            
+            // Check that we transition to Dead state when taking lethal damage
+            entity.TakeHit(entity.Health);
+            yield return null;
+            Assert.AreEqual(typeof(Dead), stateMachine.CurrentStateType);
+        }
     }
 }
