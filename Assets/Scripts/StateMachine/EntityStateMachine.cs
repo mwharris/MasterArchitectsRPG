@@ -25,11 +25,6 @@ public class EntityStateMachine : MonoBehaviour
         Attack attack = new Attack();
         Dead dead = new Dead();
         
-        _stateMachine.Add(idle);
-        _stateMachine.Add(chasePlayer);
-        _stateMachine.Add(attack);
-        _stateMachine.Add(dead);
-
         // Idle -> Chase
         _stateMachine.AddTransition(
             idle, 

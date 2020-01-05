@@ -2,21 +2,64 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\mharr\.Rider2019.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\mharr\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_RPG.2069265254.00" t="ExcludeRecursive" />
-    <e p="C:\Users\mharr\Documents\Unity Projects\RPG" t="IncludeRecursive">
+    <e p="C:\Users\mharr\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_RPG.1961193062.00" t="ExcludeRecursive" />
+    <e p="C:\Users\mharr\Documents\Unity Projects\MasterArchitectsRPG" t="IncludeRecursive">
       <e p="Assets" t="Include">
         <e p="EditMode Tests" t="Include">
+          <e p="Base_State_Machine.cs" t="Include" />
           <e p="EditMode Tests.asmdef" t="Include" />
-          <e p="NewTestScript.cs" t="Include" />
         </e>
         <e p="PlayMode Tests" t="Include">
           <e p="A_Moving_Cube.cs" t="Include" />
+          <e p="A_Player.cs" t="Include" />
+          <e p="Entity_State_Machine.cs" t="Include" />
+          <e p="Moving_Into_An_Item.cs" t="Include" />
           <e p="PlayMode Tests.asmdef" t="Include" />
-          <e p="With_Positive_Vertical_Input.cs" t="Include" />
         </e>
         <e p="Scripts" t="Include">
+          <e p="Camera" t="Include">
+            <e p="CameraController.cs" t="Include" />
+          </e>
+          <e p="Entities" t="Include">
+            <e p="Entity.cs" t="Include" />
+            <e p="EntityAnimator.cs" t="Include" />
+            <e p="ITakeHits.cs" t="Include" />
+          </e>
+          <e p="IMover.cs" t="Include" />
+          <e p="Inventory" t="Include">
+            <e p="CubeSpawner.cs" t="Include" />
+            <e p="Inventory.cs" t="Include" />
+            <e p="InventoryUse.cs" t="Include" />
+            <e p="Item.cs" t="Include" />
+            <e p="ItemComponent.cs" t="Include" />
+            <e p="ItemLogger.cs" t="Include" />
+            <e p="ItemRaycast.cs" t="Include" />
+            <e p="UseAction.cs" t="Include" />
+            <e p="UseMode.cs" t="Include" />
+          </e>
+          <e p="IPlayerInput.cs" t="Include" />
+          <e p="Mover.cs" t="Include" />
+          <e p="NavmeshMover.cs" t="Include" />
           <e p="Player.cs" t="Include" />
+          <e p="PlayerInput.cs" t="Include" />
+          <e p="Rotator.cs" t="Include" />
           <e p="Scripts.asmdef" t="Include" />
+          <e p="StateMachine" t="Include">
+            <e p="Attack.cs" t="Include" />
+            <e p="ChasePlayer.cs" t="Include" />
+            <e p="Dead.cs" t="Include" />
+            <e p="EntityStateMachine.cs" t="Include" />
+            <e p="Idle.cs" t="Include" />
+            <e p="IState.cs" t="Include" />
+            <e p="StateMachine.cs" t="Include" />
+            <e p="StateTransition.cs" t="Include" />
+          </e>
+          <e p="UI" t="Include">
+            <e p="Crosshair.cs" t="Include" />
+            <e p="CrosshairDefinition.cs" t="Include" />
+            <e p="Hotbar.cs" t="Include" />
+            <e p="Slot.cs" t="Include" />
+          </e>
         </e>
       </e>
       <e p="EditModeTests.csproj" t="IncludeRecursive" />

@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class StateMachine
 {
-    private Dictionary<IState, List<StateTransition>> _stateTransitions = new Dictionary<IState, List<StateTransition>>();
+    private List<StateTransition> _stateTransitions = new List<StateTransition>();
     private List<StateTransition> _anyStateTransitions = new List<StateTransition>();
     
-    private List<IState> _states = new List<IState>();
     private IState _currentState;
     public IState CurrentState => _currentState;
 
@@ -21,13 +20,7 @@ public class StateMachine
         }
         _currentState.Tick();
     }
-
-    // Add a new State to our List of States 
-    public void Add(IState state)
-    {
-        _states.Add(state);
-    }
-
+    
     // Set a new current State
     public void SetState(IState state)
     {
@@ -41,17 +34,10 @@ public class StateMachine
         Debug.Log($"Changed to state {state}");
     }
 
-    // Add a new State Transition
     public void AddTransition(IState from, IState to, Func<bool> condition)
     {
-        // Create a new list if this key doesn't already exist
-        if (!_stateTransitions.ContainsKey(from))
-        {
-            _stateTransitions[from] = new List<StateTransition>();
-        }
-        // Create and add the new State Transition
         StateTransition stateTransition = new StateTransition(from, to, condition);
-        _stateTransitions[from].Add(stateTransition);
+        _stateTransitions.Add(stateTransition);
     }
     
     public void AddAnyTransition(IState to, Func<bool> condition)
@@ -64,7 +50,7 @@ public class StateMachine
     // Return that State Transition if so.
     private StateTransition CheckForTransition()
     {
-        // TODO: Refactor this re-used foreach out to it's own method
+        // Any state transitions - don't check From state
         foreach (var anyTransition in _anyStateTransitions)
         {
             if (anyTransition.Condition())
@@ -72,14 +58,12 @@ public class StateMachine
                 return anyTransition;
             }
         }
-        if (_stateTransitions.ContainsKey(_currentState))
+        // Normal state transitions - check From state
+        foreach (var stateTransition in _stateTransitions)
         {
-            foreach (var stateTransition in _stateTransitions[_currentState])
+            if (_currentState == stateTransition.From && stateTransition.Condition())
             {
-                if (stateTransition.Condition())
-                {
-                    return stateTransition;
-                }
+                return stateTransition;
             }
         }
         return null;
