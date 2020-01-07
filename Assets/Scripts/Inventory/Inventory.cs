@@ -30,21 +30,33 @@ public class Inventory : MonoBehaviour
         item.transform.parent = _itemRoot;
         // Equip this item
         Equip(item);
-        // Notify subcribers that we picked up a new item
+        // Mark this Item as having been picked up
+        item.WasPickedUp = true;
+        // Notify subscribers that we picked up a new item
         ItemPickedUp?.Invoke(item);
-        
     }
 
     public void Equip(Item item)
     {
+        // We don't want multiple items equipped at the same time
+        UnequipActiveItem();
         // Place this item underneath our right hand
         item.transform.SetParent(_rightHand);
         item.transform.localPosition = Vector3.zero;
         item.transform.localRotation = Quaternion.identity;
         ActiveItem = item;
-
         // Invoke the Event if the Event is not null
         ActiveItemChanged?.Invoke(ActiveItem);
+    }
+
+    // Unequip the currently Active item, if one exists
+    private void UnequipActiveItem()
+    {
+        if (ActiveItem != null)
+        {
+            ActiveItem.transform.SetParent(_itemRoot);
+            ActiveItem.gameObject.SetActive(false);
+        }
     }
 
 }
