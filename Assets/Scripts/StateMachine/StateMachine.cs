@@ -10,6 +10,8 @@ public class StateMachine
     private IState _currentState;
     public IState CurrentState => _currentState;
 
+    public event Action<IState> OnStateChanged;
+
     public void Tick()
     {
         // Transition to a new State if any of our current State's transition conditions are met
@@ -25,11 +27,15 @@ public class StateMachine
     public void SetState(IState state)
     {
         if (_currentState == state)
+        {
             return;
+        }
 
         _currentState?.OnExit();
         _currentState = state;
         _currentState.OnEnter();
+        
+        OnStateChanged?.Invoke(_currentState);
         
         Debug.Log($"Changed to state {state}");
     }

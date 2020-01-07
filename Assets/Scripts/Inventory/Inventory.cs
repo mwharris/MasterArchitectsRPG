@@ -8,13 +8,13 @@ public class Inventory : MonoBehaviour
     public event Action<Item> ItemPickedUp;
     
     [SerializeField] private Transform _rightHand;
-    
-    private List<Item> _items = new List<Item>();
     private Transform _itemRoot;
     
+    private List<Item> _items = new List<Item>();
+    public List<Item> Items => _items;
+    
     public Item ActiveItem { get; private set; }
-
-
+    
     void Awake()
     {
         // Create our item root as a child of this game object

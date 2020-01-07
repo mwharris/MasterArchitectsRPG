@@ -12,14 +12,20 @@ public class EntityStateMachine : MonoBehaviour
 
     public Type CurrentStateType => _stateMachine.CurrentState.GetType();
 
+    public event Action<IState> OnEntityStateChanged;
+
     private void Awake()
     {
         Player player = FindObjectOfType<Player>();
-        
-        _stateMachine = new StateMachine();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _entity = GetComponent<Entity>();
+        _stateMachine = new StateMachine();
         
+        // Just want to explain this line further b/c there's a lot going on here.
+        // I believe what this is doing is registering a lambda function with StateMachine.OnStateChanged.
+        // This lamdba function receives "state", and simply called EntityStateMachine.OnStateChanged(state).
+        _stateMachine.OnStateChanged += state => OnEntityStateChanged?.Invoke(state);
+
         Idle idle = new Idle();
         ChasePlayer chasePlayer = new ChasePlayer(_navMeshAgent, player);
         Attack attack = new Attack();
