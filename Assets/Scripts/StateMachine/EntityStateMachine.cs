@@ -21,9 +21,9 @@ public class EntityStateMachine : MonoBehaviour
         _entity = GetComponent<Entity>();
         
         Idle idle = new Idle();
-        ChasePlayer chasePlayer = new ChasePlayer(_navMeshAgent);
+        ChasePlayer chasePlayer = new ChasePlayer(_navMeshAgent, player);
         Attack attack = new Attack();
-        Dead dead = new Dead();
+        Dead dead = new Dead(_entity);
         
         // Idle -> Chase
         _stateMachine.AddTransition(
@@ -36,8 +36,17 @@ public class EntityStateMachine : MonoBehaviour
         _stateMachine.AddTransition(
             chasePlayer, 
             attack, 
-            () => DistanceFlat(_navMeshAgent.transform.position, player.transform.position) < 2f
+            () => DistanceFlat(_navMeshAgent.transform.position, player.transform.position) <= 2f
         );
+        
+        /*
+        // Attack -> Chase
+        _stateMachine.AddTransition(
+            attack, 
+            chasePlayer, 
+            () => DistanceFlat(_navMeshAgent.transform.position, player.transform.position) > 2f
+        );
+        */
         
         // Any -> Dead
         _stateMachine.AddAnyTransition(dead, () => _entity.Health <= 0);
