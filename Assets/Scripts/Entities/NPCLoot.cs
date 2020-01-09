@@ -16,6 +16,14 @@ public class NPCLoot : MonoBehaviour
 
     private void Start()
     {
+		// There's actually a small bug here.
+		// During the Awake phase:
+		// 	1. EntityStateMachine registers with StateMachine.OnStateChanged
+		//	2. EntityStateMachine then calls StateMachine.SetState() which in turn invokes its OnStateChanged event.
+		// 	3. This triggers EntityStateMachine.OnEntityStateChanged, which propogates the event
+		// But this call here is in the Start phase, which happens after the Awake phase.
+		// Therefore, it is not possible for Step 3 to ever trigger this event right here.
+		// This is fine because the initial state is Idle and this is waiting for Dead, but it could cause problems.
         _entityStateMachine.OnEntityStateChanged += HandleEntityStateChanged;
         
         foreach (var itemPrefab in _itemPrefabs)
