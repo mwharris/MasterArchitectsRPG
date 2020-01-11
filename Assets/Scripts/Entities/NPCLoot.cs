@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Inventory))]
@@ -46,9 +47,8 @@ public class NPCLoot : MonoBehaviour
         Debug.Log("Dropping loot...");
         foreach (var item in _inventory.Items)
         {
-            item.transform.SetParent(null);
-            item.transform.position = transform.position + transform.right;
-            item.gameObject.SetActive(true);
+            var lootItemHolder = FindObjectOfType<LootItemHolder>();
+            lootItemHolder.SetItem(item);
         }
         _inventory.Items.Clear();
     }
