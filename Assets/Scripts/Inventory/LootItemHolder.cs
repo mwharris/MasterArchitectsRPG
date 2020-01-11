@@ -15,6 +15,8 @@ public class LootItemHolder : MonoBehaviour
     {
         item.transform.SetParent(_itemTransform);
         item.transform.localPosition = Vector3.zero;
+        item.transform.localRotation = Quaternion.identity;
         item.gameObject.SetActive(true);
+        item.WasPickedUp = false;
     }
 }

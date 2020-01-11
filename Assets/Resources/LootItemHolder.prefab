@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemTransform: {fileID: 923863790002133160}
-  _rotationSpeed: 2
+  _rotationSpeed: 50
 --- !u!1001 &1465461232023235995
 PrefabInstance:
   m_ObjectHideFlags: 0

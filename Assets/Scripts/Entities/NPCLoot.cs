@@ -47,8 +47,7 @@ public class NPCLoot : MonoBehaviour
         Debug.Log("Dropping loot...");
         foreach (var item in _inventory.Items)
         {
-            var lootItemHolder = FindObjectOfType<LootItemHolder>();
-            lootItemHolder.SetItem(item);
+            LootSystem.Drop(item, transform);
         }
         _inventory.Items.Clear();
     }

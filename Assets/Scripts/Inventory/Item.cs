@@ -18,7 +18,9 @@ public class Item : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (WasPickedUp)
+        {
             return;
+        }
 
         var inventory = other.GetComponent<Inventory>();
         if (inventory != null)
