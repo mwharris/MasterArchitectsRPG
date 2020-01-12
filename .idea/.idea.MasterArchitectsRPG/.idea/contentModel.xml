@@ -24,7 +24,6 @@
             <e p="Entity.cs" t="Include" />
             <e p="EntityAnimator.cs" t="Include" />
             <e p="ITakeHits.cs" t="Include" />
-            <e p="LootSystem.cs" t="Include" />
             <e p="NPCLoot.cs" t="Include" />
           </e>
           <e p="IMover.cs" t="Include" />
@@ -37,6 +36,7 @@
             <e p="ItemLogger.cs" t="Include" />
             <e p="ItemRaycast.cs" t="Include" />
             <e p="LootItemHolder.cs" t="Include" />
+            <e p="LootSystem.cs" t="Include" />
             <e p="UseAction.cs" t="Include" />
             <e p="UseMode.cs" t="Include" />
           </e>
