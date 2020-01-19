@@ -33,11 +33,11 @@ public class StateMachine
 
         _currentState?.OnExit();
         _currentState = state;
+        Debug.Log($"Changed to state {state}");
         _currentState.OnEnter();
         
         OnStateChanged?.Invoke(_currentState);
         
-        Debug.Log($"Changed to state {state}");
     }
 
     public void AddTransition(IState from, IState to, Func<bool> condition)

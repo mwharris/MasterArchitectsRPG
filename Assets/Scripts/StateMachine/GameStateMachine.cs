@@ -8,10 +8,10 @@ public class GameStateMachine : MonoBehaviour
 {
     private StateMachine _stateMachine;
     
-    public Type CurrentStateType => _stateMachine.CurrentState.GetType();
-    
     private void Awake()
     {
+        DontDestroyOnLoad(this.gameObject);
+        
         _stateMachine = new StateMachine();
         
         var menu = new Menu();
@@ -23,10 +23,8 @@ public class GameStateMachine : MonoBehaviour
         
         _stateMachine.AddTransition(loading, play, loading.Finished);
         
-        // Transition from Play -> Pause when a button is pressed
-        _stateMachine.AddTransition(play, pause, () => true);
-        
-        DontDestroyOnLoad(this.gameObject);
+        _stateMachine.AddTransition(play, pause, () => Input.GetKeyDown(KeyCode.Escape));
+        _stateMachine.AddTransition(pause, play, () => Input.GetKeyDown(KeyCode.Escape));
     }
     
     private void Update()
@@ -90,15 +88,21 @@ public class LoadLevel : IState
 
 public class Pause : IState
 {
+    public static bool Active { get; private set; }
+    
     public void Tick()
     {
     }
 
     public void OnEnter()
     {
+        Active = true;
+        Time.timeScale = 0f;
     }
 
     public void OnExit()
     {
+        Active = false;
+        Time.timeScale = 1f;
     }
 }
