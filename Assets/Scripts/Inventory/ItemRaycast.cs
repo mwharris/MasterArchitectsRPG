@@ -33,11 +33,12 @@ public class ItemRaycast : ItemComponent
         double nearestDistance = double.MaxValue;
         for (int i = 0; i < hits; i++)
         {
-            var distance = Vector3.Distance(transform.position, _results[i].point);
-            if (distance < nearestDistance)
+            RaycastHit currHit = _results[i];
+            var distance = Vector3.Distance(transform.position, currHit.point);
+            if (distance < nearestDistance && !currHit.transform.IsChildOf(this.transform))
             {
                 nearestDistance = distance;
-                nearest = _results[i];
+                nearest = currHit;
             }            
         }
 
