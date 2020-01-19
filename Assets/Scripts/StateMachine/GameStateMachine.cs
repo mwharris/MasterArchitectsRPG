@@ -8,6 +8,8 @@ public class GameStateMachine : MonoBehaviour
 {
     private StateMachine _stateMachine;
     
+    public Type CurrentStateType => _stateMachine.CurrentState.GetType();
+    
     private void Awake()
     {
         _stateMachine = new StateMachine();
@@ -20,6 +22,16 @@ public class GameStateMachine : MonoBehaviour
         _stateMachine.SetState(loading);
         
         _stateMachine.AddTransition(loading, play, loading.Finished);
+        
+        // Transition from Play -> Pause when a button is pressed
+        _stateMachine.AddTransition(play, pause, () => true);
+        
+        DontDestroyOnLoad(this.gameObject);
+    }
+    
+    private void Update()
+    {
+        _stateMachine.Tick();
     }
 }
 
@@ -55,7 +67,7 @@ public class Play : IState
 
 public class LoadLevel : IState
 {
-    private List<AsyncOperation> _operations = new List<AsyncOperation>();
+    private readonly List<AsyncOperation> _operations = new List<AsyncOperation>();
     
     // TrueForAll() runs a function for all elements and returns true if they all evaluate to true
     public bool Finished() => _operations.TrueForAll(t => t.isDone);

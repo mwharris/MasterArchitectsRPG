@@ -8,11 +8,14 @@ public class Player : MonoBehaviour
     private CharacterController _characterController;
     private IMover _mover;
     private Rotator _rotator;
-
+    private GameStateMachine _gameStateMachine;
+    
     public IPlayerInput PlayerInput { get; set; } = new PlayerInput();
 
     void Awake()
     {
+        _gameStateMachine = FindObjectOfType<GameStateMachine>();
+        
         PlayerInput.MovementMethodChanged += UpdateMovementMethod;
         
         _characterController = GetComponent<CharacterController>();
@@ -22,9 +25,12 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        _mover.Tick();
-        _rotator.Tick();
-        PlayerInput.Tick();
+        if (_gameStateMachine.CurrentStateType == typeof(Play))
+        {
+            _mover.Tick();
+            _rotator.Tick();
+            PlayerInput.Tick();
+        }
     }
 
     private void UpdateMovementMethod()
