@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class Item : MonoBehaviour
 {
+    public event Action OnPickedUp;
+    
     [SerializeField] private CrosshairDefinition _crosshairDefinition;
     [SerializeField] private UseAction[] _actions = new UseAction[0];
     [SerializeField] private Sprite _icon;
@@ -14,6 +17,7 @@ public class Item : MonoBehaviour
     public UseAction[] Actions => _actions;
     public Sprite Icon => _icon;
     public bool WasPickedUp { get; set; }
+
     
     private void OnTriggerEnter(Collider other)
     {
@@ -26,6 +30,7 @@ public class Item : MonoBehaviour
         if (inventory != null)
         {
             inventory.Pickup(this);
+            OnPickedUp?.Invoke();
         }
     }
 

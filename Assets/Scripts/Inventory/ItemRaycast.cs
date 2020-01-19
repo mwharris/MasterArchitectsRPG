@@ -41,7 +41,7 @@ public class ItemRaycast : ItemComponent
             }            
         }
 
-        // Spawn a cube at the nearest hit location
+        // Tell whatever we hit to take damage
         if (nearest.transform != null)
         {
             var takeHits = nearest.collider.GetComponent<ITakeHits>();

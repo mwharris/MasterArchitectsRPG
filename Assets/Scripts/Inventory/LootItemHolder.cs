@@ -4,6 +4,8 @@ public class LootItemHolder : MonoBehaviour
 {
     [SerializeField] private Transform _itemTransform;
     [SerializeField] private float _rotationSpeed = 1f;
+    
+    private Item _item;
 
     private void Update()
     {
@@ -13,10 +15,18 @@ public class LootItemHolder : MonoBehaviour
     
     public void SetItem(Item item)
     {
-        item.transform.SetParent(_itemTransform);
-        item.transform.localPosition = Vector3.zero;
-        item.transform.localRotation = Quaternion.identity;
-        item.gameObject.SetActive(true);
-        item.WasPickedUp = false;
+        _item = item;
+        _item.transform.SetParent(_itemTransform);
+        _item.transform.localPosition = Vector3.zero;
+        _item.transform.localRotation = Quaternion.identity;
+        _item.gameObject.SetActive(true);
+        _item.WasPickedUp = false;
+        _item.OnPickedUp += HandleItemPickedUp;
+    }
+
+    private void HandleItemPickedUp()
+    {
+        _item.OnPickedUp -= HandleItemPickedUp;
+        LootSystem.AddToPool(this);
     }
 }

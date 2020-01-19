@@ -44,11 +44,11 @@ public class NPCLoot : MonoBehaviour
 
     private void DropLoot()
     {
-        Debug.Log("Dropping loot...");
         foreach (var item in _inventory.Items)
         {
             LootSystem.Drop(item, transform);
         }
+        // We might not want to be able clear the inventory from outside like this...
         _inventory.Items.Clear();
     }
 }
