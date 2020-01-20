@@ -6,13 +6,23 @@ using UnityEngine.SceneManagement;
 
 public class GameStateMachine : MonoBehaviour
 {
-    private StateMachine _stateMachine;
+    //public static event Action<IState> OnGameStateChanged;
     
+    private StateMachine _stateMachine;
+    private static bool _initialized;
+
     private void Awake()
     {
+        if (_initialized)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        _initialized = true;
         DontDestroyOnLoad(this.gameObject);
         
         _stateMachine = new StateMachine();
+        //_stateMachine.OnStateChanged += state => OnGameStateChanged?.Invoke(state);
         
         var menu = new Menu();
         var loading = new LoadLevel();
@@ -25,6 +35,8 @@ public class GameStateMachine : MonoBehaviour
         
         _stateMachine.AddTransition(play, pause, () => Input.GetKeyDown(KeyCode.Escape));
         _stateMachine.AddTransition(pause, play, () => Input.GetKeyDown(KeyCode.Escape));
+        
+        _stateMachine.AddTransition(pause, loading, () => RestartButton.Pressed);
     }
     
     private void Update()

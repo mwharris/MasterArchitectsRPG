@@ -62,6 +62,8 @@
             <e p="Crosshair.cs" t="Include" />
             <e p="CrosshairDefinition.cs" t="Include" />
             <e p="Hotbar.cs" t="Include" />
+            <e p="PausePanel.cs" t="Include" />
+            <e p="RestartButton.cs" t="Include" />
             <e p="Slot.cs" t="Include" />
           </e>
         </e>
