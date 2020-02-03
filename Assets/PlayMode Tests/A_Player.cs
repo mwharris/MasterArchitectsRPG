@@ -29,6 +29,15 @@ namespace A_Player
             }
         }
         
+        public static IEnumerator LoadMenuScene()
+        {
+            var operation = SceneManager.LoadSceneAsync("Menu");
+            while (!operation.isDone)
+            {
+                yield return null;
+            }
+        }
+        
         public static IEnumerator LoadItemTestScene()
         {
             var operation = SceneManager.LoadSceneAsync("ItemTests");
@@ -59,6 +68,7 @@ namespace A_Player
             var dot = Vector3.Dot(cross, Vector3.up);
             return dot;
         }
+
     }
     
     public class With_Positive_Vertical_Input

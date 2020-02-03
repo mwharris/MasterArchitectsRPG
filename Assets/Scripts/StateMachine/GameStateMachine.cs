@@ -10,27 +10,33 @@ public class GameStateMachine : MonoBehaviour
     
     private StateMachine _stateMachine;
     private static bool _initialized;
-
+    
+    public Type CurrentStateType => _stateMachine.CurrentState.GetType();
+    
     private void Awake()
     {
+        // Make sure there's only ever one instance of GameStateMachine
         if (_initialized)
         {
             Destroy(this.gameObject);
             return;
         }
         _initialized = true;
+        
         DontDestroyOnLoad(this.gameObject);
         
+        // Create a base StateMachine and hook into it's OnStateChanged
         _stateMachine = new StateMachine();
         _stateMachine.OnStateChanged += state => OnGameStateChanged?.Invoke(state);
         
+        // Create our states and default to the Menu state
         var menu = new Menu();
         var loading = new LoadLevel();
         var play = new Play();
         var pause = new Pause();
-        
         _stateMachine.SetState(menu);
         
+        // Create all of our game state transitions
         _stateMachine.AddTransition(menu, loading, () => PlayButton.LevelToLoad != null);
         
         _stateMachine.AddTransition(loading, play, loading.Finished);
