@@ -15,12 +15,14 @@ namespace A_Player
         [UnitySetUp]
         public IEnumerator Init()
         {
+            PlayerInput.Instance = Substitute.For<IPlayerInput>();
+            
             yield return Helpers.LoadItemTestScene();
 
             item = GameObject.FindObjectOfType<Item>();
-
             player = Helpers.GetPlayer();
-            player.PlayerInput.Vertical.Returns(1f);
+            
+            PlayerInput.Instance.Vertical.Returns(1f);
         }
         
         [UnityTest]

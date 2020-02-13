@@ -10,7 +10,7 @@ public class Hotbar : MonoBehaviour
     private void OnEnable()
     {
         _player = FindObjectOfType<Player>();
-        _player.PlayerInput.HotkeyPressed += HotkeyPressed;
+        PlayerInput.Instance.HotkeyPressed += HotkeyPressed;
         
         _inventory = FindObjectOfType<Inventory>();
         _inventory.ItemPickedUp += ItemPickedUp;
@@ -19,7 +19,7 @@ public class Hotbar : MonoBehaviour
 
     private void OnDisable()
     {
-        _player.PlayerInput.HotkeyPressed -= HotkeyPressed;
+        PlayerInput.Instance.HotkeyPressed -= HotkeyPressed;
         _inventory.ItemPickedUp -= ItemPickedUp;
     }
 

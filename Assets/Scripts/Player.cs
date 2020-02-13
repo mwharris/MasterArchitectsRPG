@@ -8,12 +8,10 @@ public class Player : MonoBehaviour
     private CharacterController _characterController;
     private IMover _mover;
     private Rotator _rotator;
-    
-    public IPlayerInput PlayerInput { get; set; } = new PlayerInput();
 
     void Awake()
     {
-        PlayerInput.MovementMethodChanged += UpdateMovementMethod;
+        PlayerInput.Instance.MovementMethodChanged += UpdateMovementMethod;
         
         _characterController = GetComponent<CharacterController>();
         _mover = new Mover(this);
@@ -28,7 +26,6 @@ public class Player : MonoBehaviour
         }
         _mover.Tick();
         _rotator.Tick();
-        PlayerInput.Tick();
     }
 
     private void UpdateMovementMethod()

@@ -4,74 +4,20 @@ using NSubstitute;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
 namespace A_Player
 {
-    public static class Helpers
+    public class Player_Input_Test
     {
-        public static IEnumerator LoadMovementTestScene()
+        [SetUp]
+        public void setup()
         {
-            var operation = SceneManager.LoadSceneAsync("MovementTests");
-            while (!operation.isDone)
-            {
-                yield return null;
-            }
+            PlayerInput.Instance = Substitute.For<IPlayerInput>();
         }
-        
-        public static IEnumerator LoadEntityStateMachineTestsScene()
-        {
-            var operation = SceneManager.LoadSceneAsync("EntityStateMachineTests");
-            while (!operation.isDone)
-            {
-                yield return null;
-            }
-        }
-        
-        public static IEnumerator LoadMenuScene()
-        {
-            var operation = SceneManager.LoadSceneAsync("Menu");
-            while (!operation.isDone)
-            {
-                yield return null;
-            }
-        }
-        
-        public static IEnumerator LoadItemTestScene()
-        {
-            var operation = SceneManager.LoadSceneAsync("ItemTests");
-            while (!operation.isDone)
-            {
-                yield return null;
-            }
-            
-            operation = SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
-            while (!operation.isDone)
-            {
-                yield return null;
-            }
-        }
-
-        public static Player GetPlayer()
-        {
-            Player player = GameObject.FindObjectOfType<Player>();
-            
-            var testPlayerInput = Substitute.For<IPlayerInput>();
-            player.PlayerInput = testPlayerInput;
-            return player;
-        }
-
-        public static float CalculateTurn(Quaternion originalRotation, Quaternion newRotation)
-        {
-            var cross = Vector3.Cross(originalRotation * Vector3.forward, newRotation * Vector3.forward);
-            var dot = Vector3.Dot(cross, Vector3.up);
-            return dot;
-        }
-
     }
     
-    public class With_Positive_Vertical_Input
+    public class With_Positive_Vertical_Input : Player_Input_Test
     {
         [UnityTest]
         public IEnumerator Moves_Forward()
@@ -80,11 +26,11 @@ namespace A_Player
 
             var player = Helpers.GetPlayer();
             
-            player.PlayerInput.Vertical.Returns(1f);
+            PlayerInput.Instance.Vertical.Returns(1f);
 
             float startingZPosition = player.transform.position.z;
             
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(0.5f);
             
             float endingZPosition = player.transform.position.z;
 
@@ -92,7 +38,7 @@ namespace A_Player
         }
     }
     
-    public class With_Negative_Vertical_Input
+    public class With_Negative_Vertical_Input : Player_Input_Test
     {
         [UnityTest]
         public IEnumerator Moves_Backward()
@@ -101,11 +47,11 @@ namespace A_Player
 
             var player = Helpers.GetPlayer();
             
-            player.PlayerInput.Vertical.Returns(-1f);
+            PlayerInput.Instance.Vertical.Returns(-1f);
 
             float startingZPosition = player.transform.position.z;
             
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(0.5f);
             
             float endingZPosition = player.transform.position.z;
 
@@ -113,7 +59,7 @@ namespace A_Player
         }
     }
     
-    public class With_Positive_Horizontal_Input
+    public class With_Positive_Horizontal_Input : Player_Input_Test
     {
         [UnityTest]
         public IEnumerator Moves_Right()
@@ -122,11 +68,11 @@ namespace A_Player
 
             var player = Helpers.GetPlayer();
             
-            player.PlayerInput.Horizontal.Returns(1f);
+            PlayerInput.Instance.Horizontal.Returns(1f);
 
             float startingXPosition = player.transform.position.x;
             
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(0.5f);
             
             float endingXPosition = player.transform.position.x;
 
@@ -134,7 +80,7 @@ namespace A_Player
         }
     }
     
-    public class With_Negative_Horizontal_Input
+    public class With_Negative_Horizontal_Input : Player_Input_Test
     {
         [UnityTest]
         public IEnumerator Moves_Left()
@@ -143,11 +89,11 @@ namespace A_Player
 
             var player = Helpers.GetPlayer();
             
-            player.PlayerInput.Horizontal.Returns(-1f);
+            PlayerInput.Instance.Horizontal.Returns(-1f);
 
             float startingXPosition = player.transform.position.x;
             
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(0.5f);
             
             float endingXPosition = player.transform.position.x;
 
@@ -155,7 +101,7 @@ namespace A_Player
         }
     }
 
-    public class With_Negative_Mouse_X
+    public class With_Negative_Mouse_X : Player_Input_Test
     {
         [UnityTest]
         public IEnumerator Turns_Left()
@@ -164,7 +110,7 @@ namespace A_Player
 
             var player = Helpers.GetPlayer();
             
-            player.PlayerInput.MouseX.Returns(-1f);
+            PlayerInput.Instance.MouseX.Returns(-1f);
 
             var originalRotation = player.transform.rotation;
             yield return new WaitForSeconds(0.5f);
@@ -174,7 +120,7 @@ namespace A_Player
         }
     }
     
-    public class With_Positive_Mouse_X
+    public class With_Positive_Mouse_X : Player_Input_Test
     {
         [UnityTest]
         public IEnumerator Turns_Right()
@@ -183,7 +129,7 @@ namespace A_Player
 
             var player = Helpers.GetPlayer();
             
-            player.PlayerInput.MouseX.Returns(1f);
+            PlayerInput.Instance.MouseX.Returns(1f);
 
             var originalRotation = player.transform.rotation;
             yield return new WaitForSeconds(0.5f);

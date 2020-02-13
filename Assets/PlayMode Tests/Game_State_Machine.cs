@@ -8,6 +8,12 @@ namespace State_Machine
 {
     public class Game_State_Machine
     {
+        [TearDown]
+        public void Teardown()
+        {
+            GameObject.Destroy(GameObject.FindObjectOfType<GameStateMachine>());
+        }
+        
         [UnityTest]
         public IEnumerator Switches_To_Loading_When_Level_Is_Selected()
         {
@@ -29,8 +35,6 @@ namespace State_Machine
         [UnityTest]
         public IEnumerator Switches_To_Play_When_Level_Loading_Completed()
         {
-            GameObject.Destroy(GameObject.FindObjectOfType<GameStateMachine>());
-            
             yield return Helpers.LoadMenuScene();
 
             GameStateMachine stateMachine = GameObject.FindObjectOfType<GameStateMachine>();
@@ -50,6 +54,27 @@ namespace State_Machine
 
             // Check that we moved to Play state
             Assert.AreEqual(typeof(Play), stateMachine.CurrentStateType);
+        }
+        
+        [UnityTest]
+        public IEnumerator Switches_From_Play_to_Pause_When_Pause_Pressed()
+        {
+            yield return Helpers.LoadMenuScene();
+
+            GameStateMachine stateMachine = GameObject.FindObjectOfType<GameStateMachine>();
+            
+            // Mimic clicking a load level button
+            PlayButton.LevelToLoad = "Level1";
+            
+            // Wait until LoadLevel asynchronously loads the scene and moves us to Play state
+            yield return new WaitUntil(()=> stateMachine.CurrentStateType == typeof(Play));
+            Assert.AreEqual(typeof(Play), stateMachine.CurrentStateType);
+
+            // Hit the escape button
+            
+
+            // Check that we moved to Pause state
+            Assert.AreEqual(typeof(Pause), stateMachine.CurrentStateType);
         }
 
         [UnityTest]
