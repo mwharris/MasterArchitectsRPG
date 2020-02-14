@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using A_Player;
+using NSubstitute;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -8,12 +9,18 @@ namespace State_Machine
 {
     public class Game_State_Machine
     {
+        [SetUp]
+        public void Setup()
+        {
+            PlayerInput.Instance = Substitute.For<IPlayerInput>();
+        }
+        
         [TearDown]
         public void Teardown()
         {
             GameObject.Destroy(GameObject.FindObjectOfType<GameStateMachine>());
         }
-        
+
         [UnityTest]
         public IEnumerator Switches_To_Loading_When_Level_Is_Selected()
         {
@@ -71,7 +78,8 @@ namespace State_Machine
             Assert.AreEqual(typeof(Play), stateMachine.CurrentStateType);
 
             // Hit the escape button
-            
+            PlayerInput.Instance.PausePressed.Returns(true);
+            yield return null;
 
             // Check that we moved to Pause state
             Assert.AreEqual(typeof(Pause), stateMachine.CurrentStateType);

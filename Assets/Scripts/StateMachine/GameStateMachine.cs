@@ -41,8 +41,8 @@ public class GameStateMachine : MonoBehaviour
         
         _stateMachine.AddTransition(loading, play, loading.Finished);
 
-        _stateMachine.AddTransition(play, pause, () => Input.GetKeyDown(KeyCode.Escape));
-        _stateMachine.AddTransition(pause, play, () => Input.GetKeyDown(KeyCode.Escape));
+        _stateMachine.AddTransition(play, pause, () => PlayerInput.Instance.PausePressed);
+        _stateMachine.AddTransition(pause, play, () => PlayerInput.Instance.PausePressed);
         
         _stateMachine.AddTransition(pause, menu, () => RestartButton.Pressed);
     }
