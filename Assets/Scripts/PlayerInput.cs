@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Experimental.TerrainAPI;
 
 public class PlayerInput : MonoBehaviour, IPlayerInput
 {
@@ -11,7 +12,7 @@ public class PlayerInput : MonoBehaviour, IPlayerInput
     public float Vertical => Input.GetAxis("Vertical");
     public float Horizontal => Input.GetAxis("Horizontal");
     public float MouseX => Input.GetAxis("Mouse X");
-    public bool PausePressed { get; }
+    public bool PausePressed => Input.GetKeyDown(KeyCode.Escape);
 
     private void Awake()
     {
