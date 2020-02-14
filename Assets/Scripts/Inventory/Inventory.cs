@@ -44,6 +44,7 @@ public class Inventory : MonoBehaviour
         item.transform.SetParent(_rightHand);
         item.transform.localPosition = Vector3.zero;
         item.transform.localRotation = Quaternion.identity;
+        item.transform.localScale = Vector3.one;
         ActiveItem = item;
         // Invoke the Event if the Event is not null
         ActiveItemChanged?.Invoke(ActiveItem);
