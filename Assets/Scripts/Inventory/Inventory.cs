@@ -41,13 +41,23 @@ public class Inventory : MonoBehaviour
         // We don't want multiple items equipped at the same time
         UnequipActiveItem();
         // Place this item underneath our right hand
+        HandleItemEquipped(item);
+        ActiveItem = item;
+        // Invoke the Event if the Event is not null
+        ActiveItemChanged?.Invoke(ActiveItem);
+    }
+
+    private void HandleItemEquipped(Item item)
+    {
         item.transform.SetParent(_rightHand);
         item.transform.localPosition = Vector3.zero;
         item.transform.localRotation = Quaternion.identity;
         item.transform.localScale = Vector3.one;
-        ActiveItem = item;
-        // Invoke the Event if the Event is not null
-        ActiveItemChanged?.Invoke(ActiveItem);
+        var collider = item.GetComponent<SphereCollider>();
+        if (collider != null)
+        {
+            collider.enabled = false;
+        }
     }
 
     // Unequip the currently Active item, if one exists
@@ -59,5 +69,4 @@ public class Inventory : MonoBehaviour
             ActiveItem.gameObject.SetActive(false);
         }
     }
-
 }

@@ -10,7 +10,6 @@ public class ItemRaycast : ItemComponent
     
     private RaycastHit[] _results = new RaycastHit[100];
     private int _layerMask;
-    
 
     void Awake()
     {
@@ -39,7 +38,7 @@ public class ItemRaycast : ItemComponent
             {
                 nearestDistance = distance;
                 nearest = currHit;
-            }            
+            }
         }
 
         // Tell whatever we hit to take damage
