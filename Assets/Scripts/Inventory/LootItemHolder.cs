@@ -21,6 +21,11 @@ public class LootItemHolder : MonoBehaviour
         _item.transform.localRotation = Quaternion.identity;
         _item.gameObject.SetActive(true);
         _item.WasPickedUp = false;
+        var collider = _item.GetComponent<SphereCollider>();
+        if (collider != null)
+        {
+            collider.enabled = true;
+        }
         _item.OnPickedUp += HandleItemPickedUp;
     }
 

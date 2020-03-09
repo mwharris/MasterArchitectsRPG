@@ -42,6 +42,4 @@ public class PlayerInput : MonoBehaviour, IPlayerInput
         if (Input.GetKeyDown(KeyCode.Minus))
             MovementMethodChanged?.Invoke();
     }
-    
-    
 }
