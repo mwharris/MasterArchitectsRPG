@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using UnityEditor;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 namespace PlayMode_Tests
 {
@@ -15,9 +12,21 @@ namespace PlayMode_Tests
             return Object.Instantiate(prefab);
         }
         
-        private Inventory GetInventory()
+        private Inventory GetInventory(int numberOfItems = 0)
         {
-            return new GameObject("Inventory").AddComponent<Inventory>();
+            var inventory = new GameObject("Inventory").AddComponent<Inventory>();
+            for (int i = 0; i < numberOfItems; i++)
+            {
+                var item = GetItem();
+                inventory.Pickup(item);
+            }
+            return inventory;
+        }
+        
+        private Item GetItem()
+        {
+            var go = new GameObject("Item", typeof(SphereCollider));
+            return go.AddComponent<Item>();
         }
         
         [Test]
@@ -42,24 +51,23 @@ namespace PlayMode_Tests
         }
 
         [Test]
-        public void bound_to_inventory_with_1_item_fills_first_slot()
+        public void bound_to_inventory_fills_slot_for_each_item([NUnit.Framework.Range(0, 25)] int numberOfItems)
         {
             var inventoryPanel = GetInventoryPanel();
-            var inventory = GetInventory();
-            var item = GetItem();
+            var inventory = GetInventory(numberOfItems);
 
-            Assert.IsTrue(inventoryPanel.Slots[0].IsEmpty);
+            foreach (var slot in inventoryPanel.Slots)
+            {
+                Assert.IsTrue(slot.IsEmpty);
+            }
             
-            inventory.Pickup(item);
             inventoryPanel.Bind(inventory);
-            
-            Assert.IsFalse(inventoryPanel.Slots[0].IsEmpty);
-        }
 
-        private Item GetItem()
-        {
-            var go = new GameObject("Item", typeof(SphereCollider));
-            return go.AddComponent<Item>();
+            for (int i = 0; i < inventoryPanel.SlotCount; i++)
+            {
+                bool shouldBeEmpty = i >= numberOfItems;
+                Assert.AreEqual(shouldBeEmpty, inventoryPanel.Slots[i].IsEmpty);
+            }
         }
 
     }
