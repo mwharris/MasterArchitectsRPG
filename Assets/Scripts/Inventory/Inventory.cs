@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,9 +13,9 @@ public class Inventory : MonoBehaviour
     
     private List<Item> _items = new List<Item>();
     public List<Item> Items => _items;
-    
+
     public Item ActiveItem { get; private set; }
-    
+
     void Awake()
     {
         // Create our item root as a child of this game object

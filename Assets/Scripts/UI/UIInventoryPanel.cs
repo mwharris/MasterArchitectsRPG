@@ -1,12 +1,29 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class UIInventoryPanel : MonoBehaviour
 {
-    private UIInventorySlot[] _slots;
-    public int SlotCount => _slots.Length;
+    public UIInventorySlot[] Slots;
+    public int SlotCount => Slots.Length;
 
     private void Awake()
     {
-        _slots = GetComponentsInChildren<UIInventorySlot>();
+        Slots = GetComponentsInChildren<UIInventorySlot>();
+    }
+
+    public void Bind(Inventory inventory)
+    {
+        for (var i = 0; i < Slots.Length; i++)
+        {
+            var slot = Slots[i];
+            if (inventory.Items.Count > i )
+            {
+                slot.SetItem(inventory.Items[i]);
+            }
+            else
+            {
+                slot.ClearItem();
+            }
+        }
     }
 }
