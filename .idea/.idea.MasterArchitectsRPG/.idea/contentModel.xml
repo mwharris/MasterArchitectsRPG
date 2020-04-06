@@ -16,6 +16,7 @@
           <e p="Game_State_Machine.cs" t="Include" />
           <e p="Helpers.cs" t="Include" />
           <e p="Inventory_Panel.cs" t="Include" />
+          <e p="Inventory_Test.cs" t="Include" />
           <e p="Moving_Into_An_Item.cs" t="Include" />
           <e p="PlayMode Tests.asmdef" t="Include" />
         </e>

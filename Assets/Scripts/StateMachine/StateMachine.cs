@@ -37,7 +37,6 @@ public class StateMachine
         _currentState.OnEnter();
         
         OnStateChanged?.Invoke(_currentState);
-        
     }
 
     public void AddTransition(IState from, IState to, Func<bool> condition)

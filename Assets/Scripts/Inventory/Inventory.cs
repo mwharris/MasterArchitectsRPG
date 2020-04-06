@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    public const int DEFAULT_INVENTORY_SIZE = 25;
+    
     public event Action<Item> ActiveItemChanged;
     public event Action<Item> ItemPickedUp;
     
     [SerializeField] private Transform _rightHand;
     private Transform _itemRoot;
     
-    private List<Item> _items = new List<Item>();
-    public List<Item> Items => _items;
+    private Item[] _items = new Item[DEFAULT_INVENTORY_SIZE];
 
     public Item ActiveItem { get; private set; }
+    
+    public List<Item> Items => _items.ToList();    // TODO: Performance issue here
+    public int Count => _items.Count(t => t != null);
 
     void Awake()
     {
@@ -23,10 +28,18 @@ public class Inventory : MonoBehaviour
         _itemRoot.transform.SetParent(transform);
     }
 
-    public void Pickup(Item item)
+    public void Pickup(Item item, int? slot = null)
     {
+        if (slot.HasValue == false)
+        {
+            slot = FindFirstAvailableSlot();
+            if (slot.HasValue == false)
+            {
+                return;
+            }
+        }
         // Add the item to our list of items
-        _items.Add(item);
+        _items[slot.Value] = item;
         // Child it to this game object
         item.transform.parent = _itemRoot;
         // Equip this item
@@ -35,6 +48,18 @@ public class Inventory : MonoBehaviour
         item.WasPickedUp = true;
         // Notify subscribers that we picked up a new item
         ItemPickedUp?.Invoke(item);
+    }
+
+    private int? FindFirstAvailableSlot()
+    {
+        for (int i = 0; i < _items.Length; i++)
+        {
+            if (_items[i] == null)
+            {
+                return i;
+            }
+        }
+        return null;
     }
 
     public void Equip(Item item)
@@ -48,6 +73,16 @@ public class Inventory : MonoBehaviour
         ActiveItemChanged?.Invoke(ActiveItem);
     }
 
+    // Unequip the currently Active item, if one exists
+    private void UnequipActiveItem()
+    {
+        if (ActiveItem != null)
+        {
+            ActiveItem.transform.SetParent(_itemRoot);
+            ActiveItem.gameObject.SetActive(false);
+        }
+    }
+    
     private void HandleItemEquipped(Item item)
     {
         item.transform.SetParent(_rightHand);
@@ -61,13 +96,8 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    // Unequip the currently Active item, if one exists
-    private void UnequipActiveItem()
+    public Item GetItemInSlot(int slotIndex)
     {
-        if (ActiveItem != null)
-        {
-            ActiveItem.transform.SetParent(_itemRoot);
-            ActiveItem.gameObject.SetActive(false);
-        }
+        return _items[slotIndex];
     }
 }
