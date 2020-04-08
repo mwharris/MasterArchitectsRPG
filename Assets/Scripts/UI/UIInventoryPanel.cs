@@ -13,6 +13,8 @@ public class UIInventoryPanel : MonoBehaviour
 
     public void Bind(Inventory inventory)
     {
+        //inventory.ItemPickedUp += 
+        
         for (var i = 0; i < Slots.Length; i++)
         {
             var slot = Slots[i];

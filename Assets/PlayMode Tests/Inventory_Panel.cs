@@ -70,6 +70,20 @@ namespace PlayMode_Tests
             }
         }
 
+        [Test]
+        public void updates_when_item_picked_up()
+        {
+            var inventoryPanel = GetInventoryPanel();
+            var inventory = GetInventory();
+            var item = GetItem();
+            
+            inventoryPanel.Bind(inventory);
+            Assert.IsTrue(inventoryPanel.Slots[0].IsEmpty);
+            
+            inventory.Pickup(item);
+            Assert.IsFalse(inventoryPanel.Slots[0].IsEmpty);
+        }
+        
         /*
         [Test]
         public void updates_slots_when_items_are_moved()
