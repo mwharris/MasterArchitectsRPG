@@ -100,4 +100,11 @@ public class Inventory : MonoBehaviour
     {
         return _items[slotIndex];
     }
+
+    public void Move(int sourceIndex, int destIndex)
+    {
+        var destItem = _items[destIndex];
+        _items[destIndex] = _items[sourceIndex];
+        _items[sourceIndex] = destItem;
+    }
 }

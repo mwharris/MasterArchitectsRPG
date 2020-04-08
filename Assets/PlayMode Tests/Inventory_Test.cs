@@ -29,6 +29,19 @@ namespace PlayMode_Tests
         }
         
         // Change slot / move
+        [Test]
+        public void Can_Move_Item_To_Empty_Slot()
+        {
+            Inventory inventory = new GameObject("INVENTORY").AddComponent<Inventory>();
+            Item item = new GameObject("ITEM", typeof(SphereCollider)).AddComponent<Item>();
+            
+            inventory.Pickup(item, 0);
+            Assert.AreEqual(item, inventory.GetItemInSlot(0));
+
+            inventory.Move(0, 4);
+            Assert.AreEqual(item, inventory.GetItemInSlot(4));
+        }
+        
         // Remove Items
         // Drop Items
         // Hotkey/Hotbar assignment

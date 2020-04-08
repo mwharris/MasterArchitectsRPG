@@ -70,5 +70,19 @@ namespace PlayMode_Tests
             }
         }
 
+        /*
+        [Test]
+        public void updates_slots_when_items_are_moved()
+        {
+            var inventoryPanel = GetInventoryPanel();
+            var inventory = GetInventory(1);
+            
+            inventoryPanel.Bind(inventory);
+            
+            inventory.Move(0,4);
+            
+            Assert.AreSame(inventory.Items[4], inventoryPanel.Slots[4].item);
+        }
+        */
     }
 }
