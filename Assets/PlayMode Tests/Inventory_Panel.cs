@@ -51,6 +51,19 @@ namespace PlayMode_Tests
         }
 
         [Test]
+        public void bound_to_null_inventory_has_all_slots_empty()
+        {
+            var inventoryPanel = GetInventoryPanel();
+
+            inventoryPanel.Bind(null);
+            
+            foreach (var slot in inventoryPanel.Slots)
+            {
+                Assert.IsTrue(slot.IsEmpty);
+            }
+        }
+
+        [Test]
         public void bound_to_inventory_fills_slot_for_each_item([NUnit.Framework.Range(0, 25)] int numberOfItems)
         {
             var inventoryPanel = GetInventoryPanel();
