@@ -19,11 +19,20 @@ public class UIInventoryPanel : MonoBehaviour
         {
             _inventory.ItemPickedUp -= HandleItemPickedUp;
         }
-        
+
         _inventory = inventory;
-        _inventory.ItemPickedUp += HandleItemPickedUp;
-        RefreshSlots();
+        
+        if (_inventory != null)
+        {
+            _inventory.ItemPickedUp += HandleItemPickedUp;
+            RefreshSlots();
+        }
+        else
+        {
+            ClearSlots();
+        }
     }
+
 
     private void HandleItemPickedUp(Item item)
     {
@@ -43,6 +52,14 @@ public class UIInventoryPanel : MonoBehaviour
             {
                 slot.ClearItem();
             }
+        }
+    }
+    
+    private void ClearSlots()
+    {
+        foreach (var slot in Slots)
+        {
+            slot.ClearItem();
         }
     }
 }

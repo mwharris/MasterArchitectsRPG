@@ -1,12 +1,31 @@
-﻿using NUnit.Framework;
+﻿using NSubstitute;
+using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 
 namespace PlayMode_Tests
 {
+    public class Inventory_Slot
+    {
+
+        [Test]
+        public void shows_item_icon()
+        {
+            var inventoryPanel = Inventory_Panel.GetInventoryPanel();
+            var slot = inventoryPanel.Slots[0];
+
+            var item = Substitute.For<IItem>();
+            var sprite = Sprite.Create(Texture2D.redTexture, new Rect(0, 0, 4, 4), Vector2.zero);
+            item.Icon.Returns(sprite);
+            
+            slot.SetItem(item);
+            Assert.AreSame(sprite, slot.Icon);
+        }
+    }
+    
     public class Inventory_Panel
     {
-        private UIInventoryPanel GetInventoryPanel()
+        public static UIInventoryPanel GetInventoryPanel()
         {
             var prefab = AssetDatabase.LoadAssetAtPath<UIInventoryPanel>("Assets/Prefabs/UI/InventoryPanel.prefab");
             return Object.Instantiate(prefab);
@@ -61,6 +80,21 @@ namespace PlayMode_Tests
             {
                 Assert.IsTrue(slot.IsEmpty);
             }
+        }
+
+        [Test]
+        public void bound_to_valid_then_null_inventory_has_all_slots_empty()
+        {
+            var inventoryPanel = GetInventoryPanel();
+            var inventory = GetInventory();
+            var item = GetItem();
+            
+            inventory.Pickup(item);
+            inventoryPanel.Bind(inventory);
+            Assert.IsFalse(inventoryPanel.Slots[0].IsEmpty);
+            
+            inventoryPanel.Bind(null);
+            Assert.IsTrue(inventoryPanel.Slots[0].IsEmpty);
         }
 
         [Test]

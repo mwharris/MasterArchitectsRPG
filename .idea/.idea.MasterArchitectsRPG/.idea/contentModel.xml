@@ -35,6 +35,7 @@
           <e p="IMover.cs" t="Include" />
           <e p="Inventory" t="Include">
             <e p="CubeSpawner.cs" t="Include" />
+            <e p="IItem.cs" t="Include" />
             <e p="Inventory.cs" t="Include" />
             <e p="InventoryUse.cs" t="Include" />
             <e p="Item.cs" t="Include" />

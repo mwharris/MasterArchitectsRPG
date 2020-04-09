@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class Item : MonoBehaviour
+public class Item : MonoBehaviour, IItem
 {
     public event Action OnPickedUp;
     
