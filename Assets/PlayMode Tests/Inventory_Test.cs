@@ -34,7 +34,7 @@ namespace PlayMode_Tests
         {
             Inventory inventory = new GameObject("INVENTORY").AddComponent<Inventory>();
             Item item = new GameObject("ITEM", typeof(SphereCollider)).AddComponent<Item>();
-            
+             
             inventory.Pickup(item, 0);
             Assert.AreEqual(item, inventory.GetItemInSlot(0));
 

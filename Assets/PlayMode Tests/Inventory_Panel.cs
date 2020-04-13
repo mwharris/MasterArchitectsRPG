@@ -131,7 +131,6 @@ namespace PlayMode_Tests
             Assert.IsFalse(inventoryPanel.Slots[0].IsEmpty);
         }
         
-        /*
         [Test]
         public void updates_slots_when_items_are_moved()
         {
@@ -142,8 +141,7 @@ namespace PlayMode_Tests
             
             inventory.Move(0,4);
             
-            Assert.AreSame(inventory.Items[4], inventoryPanel.Slots[4].item);
+            Assert.AreSame(inventory.Items[4], inventoryPanel.Slots[4].Item);
         }
-        */
     }
 }

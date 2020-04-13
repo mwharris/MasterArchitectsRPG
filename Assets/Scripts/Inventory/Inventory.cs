@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour
     
     public event Action<Item> ActiveItemChanged;
     public event Action<Item> ItemPickedUp;
+    public event Action<int> OnItemChanged;
     
     [SerializeField] private Transform _rightHand;
     private Transform _itemRoot;
@@ -106,5 +107,8 @@ public class Inventory : MonoBehaviour
         var destItem = _items[destIndex];
         _items[destIndex] = _items[sourceIndex];
         _items[sourceIndex] = destItem;
+
+        OnItemChanged?.Invoke(destIndex);
+        OnItemChanged?.Invoke(sourceIndex);
     }
 }
