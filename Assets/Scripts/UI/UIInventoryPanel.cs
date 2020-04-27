@@ -1,16 +1,32 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class UIInventoryPanel : MonoBehaviour
 {
     public UIInventorySlot[] Slots;
     public int SlotCount => Slots.Length;
+    public UIInventorySlot Selected { get; private set; }
 
     private Inventory _inventory;
     
     private void Awake()
     {
         Slots = GetComponentsInChildren<UIInventorySlot>();
+        RegisterSlotClicks();
+    }
+
+    private void RegisterSlotClicks()
+    {
+        foreach (var slot in Slots)
+        {
+            slot.OnSlotClicked += HandleSlotClicked;
+        }
+    }
+
+    private void HandleSlotClicked(UIInventorySlot slot)
+    {
+        Selected = slot;
     }
 
     public void Bind(Inventory inventory)

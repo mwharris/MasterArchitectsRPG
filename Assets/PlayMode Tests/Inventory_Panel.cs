@@ -5,9 +5,20 @@ using UnityEngine;
 
 namespace PlayMode_Tests
 {
+    public class inventory_selection_with_nothing_selected
+    {
+        [Test]
+        public void clicking_non_empty_slot_selects_slot()
+        {
+            var inventoryPanel = Inventory_Panel.GetInventoryPanel();
+            var slot = inventoryPanel.Slots[0];
+            slot.OnPointerClick(null);
+            Assert.AreSame(slot, inventoryPanel.Selected);
+        }
+    }
+    
     public class Inventory_Slot
     {
-
         [Test]
         public void shows_item_icon()
         {
