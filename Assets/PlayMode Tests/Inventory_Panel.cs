@@ -1,39 +1,9 @@
-﻿using NSubstitute;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 
 namespace PlayMode_Tests
 {
-    public class inventory_selection_with_nothing_selected
-    {
-        [Test]
-        public void clicking_non_empty_slot_selects_slot()
-        {
-            var inventoryPanel = Inventory_Panel.GetInventoryPanel();
-            var slot = inventoryPanel.Slots[0];
-            slot.OnPointerClick(null);
-            Assert.AreSame(slot, inventoryPanel.Selected);
-        }
-    }
-    
-    public class Inventory_Slot
-    {
-        [Test]
-        public void shows_item_icon()
-        {
-            var inventoryPanel = Inventory_Panel.GetInventoryPanel();
-            var slot = inventoryPanel.Slots[0];
-
-            var item = Substitute.For<IItem>();
-            var sprite = Sprite.Create(Texture2D.redTexture, new Rect(0, 0, 4, 4), Vector2.zero);
-            item.Icon.Returns(sprite);
-            
-            slot.SetItem(item);
-            Assert.AreSame(sprite, slot.Icon);
-        }
-    }
-    
     public class Inventory_Panel
     {
         public static UIInventoryPanel GetInventoryPanel()
@@ -44,19 +14,12 @@ namespace PlayMode_Tests
         
         private Inventory GetInventory(int numberOfItems = 0)
         {
-            var inventory = new GameObject("Inventory").AddComponent<Inventory>();
-            for (int i = 0; i < numberOfItems; i++)
-            {
-                var item = GetItem();
-                inventory.Pickup(item);
-            }
-            return inventory;
+            return Inventory_Helpers.GetInventory(numberOfItems);
         }
         
         private Item GetItem()
         {
-            var go = new GameObject("Item", typeof(SphereCollider));
-            return go.AddComponent<Item>();
+            return Inventory_Helpers.GetItem();
         }
         
         [Test]
