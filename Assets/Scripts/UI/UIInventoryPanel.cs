@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class UIInventoryPanel : MonoBehaviour
 {
+    public event Action OnSelectionChanged;
+    
     public UIInventorySlot[] Slots;
     public int SlotCount => Slots.Length;
     public UIInventorySlot Selected { get; private set; }
@@ -74,6 +74,7 @@ public class UIInventoryPanel : MonoBehaviour
         {
             Selected = slot;
         }
+        OnSelectionChanged?.Invoke();
     }
 
     private void Swap(UIInventorySlot slot)
@@ -121,4 +122,5 @@ public class UIInventoryPanel : MonoBehaviour
             slot.ClearItem();
         }
     }
+
 }

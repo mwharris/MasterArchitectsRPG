@@ -23,6 +23,7 @@
           <e p="Inventory_Test.cs" t="Include" />
           <e p="Moving_Into_An_Item.cs" t="Include" />
           <e p="PlayMode Tests.asmdef" t="Include" />
+          <e p="UI_Selection_Cursor.cs" t="Include" />
         </e>
         <e p="Scripts" t="Include">
           <e p="Bootstrapper.cs" t="Include" />
@@ -78,6 +79,7 @@
             <e p="Slot.cs" t="Include" />
             <e p="UIInventoryPanel.cs" t="Include" />
             <e p="UIInventorySlot.cs" t="Include" />
+            <e p="UISelectionCursor.cs" t="Include" />
           </e>
         </e>
         <e p="TextMesh Pro" t="Include">
