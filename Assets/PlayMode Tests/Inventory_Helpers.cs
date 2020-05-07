@@ -27,8 +27,8 @@ namespace PlayMode_Tests
         
         public static Item GetItem()
         {
-            var go = new GameObject("Item", typeof(SphereCollider));
-            return go.AddComponent<Item>();
+            var prefab = AssetDatabase.LoadAssetAtPath<Item>("Assets/Prefabs/Items/TestItem.prefab");
+            return Object.Instantiate(prefab);
         }
 
         public static UISelectionCursor GetSelectionCursor()

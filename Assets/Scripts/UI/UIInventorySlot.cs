@@ -7,7 +7,7 @@ public class UIInventorySlot : MonoBehaviour, IPointerClickHandler
 {
     public event Action<UIInventorySlot> OnSlotClicked;
     
-    [SerializeField] private Image _image;    // Unity UI Image class
+    [SerializeField] private Image _image;
 
     public IItem Item { get; private set; }
     public bool IsEmpty => Item == null;

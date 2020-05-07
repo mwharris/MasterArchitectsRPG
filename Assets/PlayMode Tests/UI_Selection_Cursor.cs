@@ -21,5 +21,16 @@ namespace PlayMode_Tests
             
             Assert.IsTrue(uiCursor.IconVisible);
         }
+
+        [Test]
+        public void icon_sprite_shows_when_item_selected()
+        {
+            var inventoryPanel = Inventory_Helpers.GetInventoryPanelWithItems(1);
+            var uiCursor = Inventory_Helpers.GetSelectionCursor();
+            
+            inventoryPanel.Slots[0].OnPointerClick(null);
+            
+            Assert.AreSame(inventoryPanel.Slots[0].Icon, uiCursor.Icon);
+        }
     }
 }
