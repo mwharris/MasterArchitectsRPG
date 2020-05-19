@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 public interface IPlayerInput
 {
@@ -12,4 +13,5 @@ public interface IPlayerInput
     void Tick();
 
     bool PausePressed { get; }
+    Vector2 MousePosition { get; }
 }

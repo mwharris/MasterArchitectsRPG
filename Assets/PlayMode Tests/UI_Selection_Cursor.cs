@@ -1,4 +1,9 @@
-﻿using NUnit.Framework;
+﻿using System.Collections;
+using A_Player;
+using NSubstitute;
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.TestTools;
 using UnityEngine.UI;
 
 namespace PlayMode_Tests
@@ -35,7 +40,7 @@ namespace PlayMode_Tests
             
             Assert.AreSame(inventoryPanel.Slots[0].Icon, uiCursor.Icon);
         }
-        
+
         [Test]
         public void icon_not_visible_when_item_unselected()
         {
@@ -47,6 +52,34 @@ namespace PlayMode_Tests
             Assert.IsTrue(uiCursor.IconVisible);
             inventoryPanel.Slots[1].OnPointerClick(null);
             Assert.IsFalse(uiCursor.IconVisible);
+        }
+
+        [UnityTest]
+        public IEnumerator moves_with_mouse_cursor()
+        {
+            yield return Helpers.LoadItemTestScene();
+            var uiCursor = Object.FindObjectOfType<UISelectionCursor>();
+            PlayerInput.Instance = Substitute.For<IPlayerInput>();
+
+            for (int i = 0; i < 100; i++)
+            {
+                var mousePosition = new Vector2(i, i);
+                PlayerInput.Instance.MousePosition.Returns(mousePosition);
+
+                yield return null;
+
+                Vector3 mousePosition3 = new Vector3(mousePosition.x, mousePosition.y, 0);
+                Assert.AreEqual(mousePosition3, uiCursor.transform.position);
+            }
+        }
+
+        [Test]
+        public void raycast_target_disabled()
+        {
+            var inventoryPanel = Inventory_Helpers.GetInventoryPanelWithItems();
+            var uiCursor = Inventory_Helpers.GetSelectionCursor();
+            var image = uiCursor.GetComponent<Image>();
+            Assert.IsFalse(image.raycastTarget);
         }
     }
 }

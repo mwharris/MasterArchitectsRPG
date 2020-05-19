@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class UISelectionCursor : MonoBehaviour
@@ -18,6 +20,11 @@ public class UISelectionCursor : MonoBehaviour
 
     private void OnEnable() => _inventoryPanel.OnSelectionChanged += HandleSelectionChanged;
     private void OnDisable() => _inventoryPanel.OnSelectionChanged -= HandleSelectionChanged;
+
+    private void Update()
+    {
+        transform.position = PlayerInput.Instance.MousePosition;
+    }
 
     private void HandleSelectionChanged()
     {
