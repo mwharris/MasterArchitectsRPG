@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIInventorySlot : MonoBehaviour, IPointerClickHandler
+public class UIInventorySlot : MonoBehaviour, IPointerDownHandler, IEndDragHandler, IDragHandler
 {
     public event Action<UIInventorySlot> OnSlotClicked;
     
@@ -26,8 +26,25 @@ public class UIInventorySlot : MonoBehaviour, IPointerClickHandler
         Item = null;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
     {
         OnSlotClicked?.Invoke(this);
     }
+
+    public void OnDrag(PointerEventData eventData) { }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        // Get the UIInventorySlot of the slot we dropped the item on
+        var droppedOnSlot = eventData.pointerCurrentRaycast.gameObject?.GetComponentInParent<UIInventorySlot>();
+        // Simulate a click on the element we dropped on
+        if (droppedOnSlot != null)
+        {
+            droppedOnSlot.OnPointerDown(eventData);
+        }
+        else
+        {
+            OnPointerDown(eventData);
+        }
+    }
+
 }

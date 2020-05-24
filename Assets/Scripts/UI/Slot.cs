@@ -12,12 +12,6 @@ public class Slot : MonoBehaviour
     public bool IsEmpty => Item == null;
     public Image IconImage => _iconImage;
 
-    public void SetItem(Item item)
-    {
-        Item = item;
-        _iconImage.sprite = item.Icon;
-    }
-
     private void OnValidate()
     {
         _text = GetComponentInChildren<TMP_Text>();

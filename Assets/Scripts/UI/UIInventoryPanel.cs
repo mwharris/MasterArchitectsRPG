@@ -13,7 +13,8 @@ public class UIInventoryPanel : MonoBehaviour
     
     private void Awake()
     {
-        Slots = GetComponentsInChildren<UIInventorySlot>();
+        // Find all UIInventorySlot in the scene (includes inventory panel and hotbar)
+        Slots = FindObjectsOfType<UIInventorySlot>();
         RegisterSlotClicks();
     }
 
