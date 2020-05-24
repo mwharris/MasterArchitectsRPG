@@ -1,6 +1,8 @@
-﻿using NUnit.Framework;
+﻿using System.Collections;
+using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace PlayMode_Tests
 {
@@ -20,6 +22,24 @@ namespace PlayMode_Tests
         private Item GetItem()
         {
             return Inventory_Helpers.GetItem();
+        }
+
+        [UnityTearDown]
+        public IEnumerator Teardown()
+        {
+            var inventory = Object.FindObjectOfType<Inventory>();
+            var inventoryPanel = Object.FindObjectOfType<UIInventoryPanel>();
+            
+            if (inventory)
+            {
+                Object.Destroy(inventory.gameObject);
+            }
+            if (inventoryPanel)
+            {
+                Object.Destroy(inventoryPanel.gameObject);
+            }
+
+            yield return null;
         }
         
         [Test]
@@ -71,8 +91,8 @@ namespace PlayMode_Tests
             Assert.IsTrue(inventoryPanel.Slots[0].IsEmpty);
         }
 
-        [Test]
-        public void bound_to_inventory_fills_slot_for_each_item([NUnit.Framework.Range(0, 25)] int numberOfItems)
+        [UnityTest]
+        public IEnumerator bound_to_inventory_fills_slot_for_each_item([NUnit.Framework.Range(0, 25)] int numberOfItems)
         {
             var inventoryPanel = GetInventoryPanel();
             var inventory = GetInventory(numberOfItems);
@@ -83,12 +103,18 @@ namespace PlayMode_Tests
             }
             
             inventoryPanel.Bind(inventory);
-
             for (int i = 0; i < inventoryPanel.SlotCount; i++)
             {
                 bool shouldBeEmpty = i >= numberOfItems;
                 Assert.AreEqual(shouldBeEmpty, inventoryPanel.Slots[i].IsEmpty);
             }
+            
+            // UnityTeardown doesn't work for this test because it's a looped test.
+            // The Teardown won't run until all 25 versions have completed.
+            // Hence the need for the following code:
+            Object.Destroy(inventoryPanel.gameObject);
+            Object.Destroy(inventory.gameObject);
+            yield return null;
         }
 
         [Test]
