@@ -14,4 +14,5 @@ public interface IPlayerInput
 
     bool PausePressed { get; }
     Vector2 MousePosition { get; }
+    bool GetKeyDown(KeyCode keyCode);
 }

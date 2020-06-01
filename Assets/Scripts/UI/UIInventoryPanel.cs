@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 public class UIInventoryPanel : MonoBehaviour
@@ -14,7 +15,10 @@ public class UIInventoryPanel : MonoBehaviour
     private void Awake()
     {
         // Find all UIInventorySlot in the scene (includes inventory panel and hotbar)
-        Slots = FindObjectsOfType<UIInventorySlot>();
+        Slots = FindObjectsOfType<UIInventorySlot>()
+            .OrderByDescending(t => t.SortIndex)
+            .ThenBy(t => t.name)
+            .ToArray();
         RegisterSlotClicks();
     }
 
