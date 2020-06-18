@@ -72,12 +72,14 @@ public class UIInventoryPanel : MonoBehaviour
         if (Selected != null)
         {
             Swap(slot);
+            Selected.BecomeUnselected();
             Selected = null;
         }
         // Don't select empty slots
         else if (!slot.IsEmpty)
         {
             Selected = slot;
+            Selected.BecomeSelected();
         }
         OnSelectionChanged?.Invoke();
     }
@@ -127,5 +129,5 @@ public class UIInventoryPanel : MonoBehaviour
             slot.ClearItem();
         }
     }
-
+    
 }
