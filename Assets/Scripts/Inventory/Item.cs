@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
@@ -12,13 +13,14 @@ public class Item : MonoBehaviour, IItem
     [SerializeField] private CrosshairDefinition _crosshairDefinition;
     [SerializeField] private UseAction[] _actions = new UseAction[0];
     [SerializeField] private Sprite _icon;
+    [SerializeField] private StatMod[] _statMods;
 
     public CrosshairDefinition CrosshairDefinition => _crosshairDefinition;
     public UseAction[] Actions => _actions;
     public Sprite Icon => _icon;
+    public StatMod[] StatMods => _statMods;
     public bool WasPickedUp { get; set; }
 
-    
     private void OnTriggerEnter(Collider other)
     {
         if (WasPickedUp)
@@ -58,6 +60,7 @@ public class ItemEditor : Editor
         DrawIcon(item);
         DrawCrosshair(item);
         DrawActions(item);
+        DrawStatMods(item);
     }
 
     private void DrawIcon(Item item)
@@ -108,6 +111,55 @@ public class ItemEditor : Editor
         }
 
         EditorGUILayout.EndHorizontal();
+    }
+
+    private void DrawStatMods(Item item)
+    {
+        using (SerializedProperty statModsProperty = serializedObject.FindProperty("_statMods"))
+        {
+            // Loop through every Stat
+            for (int i = 0; i < statModsProperty.arraySize; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+                
+                // Create an X button to remove an array element at a given index
+                if (GUILayout.Button("x", GUILayout.Width(20)))
+                {
+                    statModsProperty.DeleteArrayElementAtIndex(i);
+                    serializedObject.ApplyModifiedProperties();
+                    break;
+                }
+
+                // Get the current Stat we want to serialize
+                SerializedProperty statMod = statModsProperty.GetArrayElementAtIndex(i);
+                if (statMod != null)
+                {
+                    // Get the StatType and Value properties relative to the Stat property
+                    SerializedProperty statTypeProperty = statMod.FindPropertyRelative("StatType");
+                    SerializedProperty valueProperty = statMod.FindPropertyRelative("Value");
+
+                    // Create an enum popup bound to our StatType property enum value
+                    statTypeProperty.enumValueIndex = (int) (StatType) EditorGUILayout.EnumPopup(
+                        (StatType) statTypeProperty.enumValueIndex,
+                        GUILayout.Width(120)
+                    );
+
+                    EditorGUILayout.PropertyField(valueProperty, GUIContent.none, false);
+
+                    serializedObject.ApplyModifiedProperties();
+                }
+
+                EditorGUILayout.EndHorizontal();
+            }
+
+            // A button to add a stat to an Item
+            if (GUILayout.Button("+ Add Stat"))
+            {
+                // Insert a new UseAction into our array of UseActions
+                statModsProperty.InsertArrayElementAtIndex(statModsProperty.arraySize);
+                serializedObject.ApplyModifiedProperties();
+            }
+        }
     }
 
     private void DrawActions(Item item)

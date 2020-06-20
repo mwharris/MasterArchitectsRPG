@@ -11,7 +11,9 @@ public class Inventory : MonoBehaviour
     public event Action<Item> ActiveItemChanged;
     public event Action<Item> ItemPickedUp;
     public event Action<int> OnItemChanged;
-    
+    public event Action<Item> ItemEquipped;
+    public event Action<Item> ItemUnEquipped;
+
     [SerializeField] private Transform _rightHand;
     private Transform _itemRoot;
     
@@ -72,6 +74,7 @@ public class Inventory : MonoBehaviour
         ActiveItem = item;
         // Invoke the Event if the Event is not null
         ActiveItemChanged?.Invoke(ActiveItem);
+        ItemEquipped?.Invoke(item);
     }
 
     // Unequip the currently Active item, if one exists
@@ -81,6 +84,7 @@ public class Inventory : MonoBehaviour
         {
             ActiveItem.transform.SetParent(_itemRoot);
             ActiveItem.gameObject.SetActive(false);
+            ItemUnEquipped?.Invoke(ActiveItem);
         }
     }
     

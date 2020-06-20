@@ -387,6 +387,7 @@ MonoBehaviour:
   _crosshairDefinition: {fileID: 0}
   _actions: []
   _icon: {fileID: 0}
+  _statMods: []
 --- !u!65 &875538831
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -764,6 +765,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7153437334682157550, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
         type: 3}
+      propertyPath: _statMods.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153437334682157550, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
+        type: 3}
       propertyPath: _crosshairDefinition
       value: 
       objectReference: {fileID: 11400000, guid: d045de6426fa1ef4f84b85d763699267,
@@ -774,6 +780,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: cb2cc81ce8197954c86bba833954ddf5,
         type: 3}
+    - target: {fileID: 7153437334682157550, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
+        type: 3}
+      propertyPath: _statMods.Array.data[0].Value
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153437334682157550, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
+        type: 3}
+      propertyPath: _statMods.Array.data[1].Value
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153437334682157550, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
+        type: 3}
+      propertyPath: _statMods.Array.data[2].Value
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7153437334682157550, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
+        type: 3}
+      propertyPath: _statMods.Array.data[3].Value
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7164164442079354908, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
         type: 3}
       propertyPath: m_Name
@@ -1088,6 +1114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lootItemHolderPrefab:
     m_AssetGUID: 66716e7465d778b4dbe0e922fd819188
+    m_SubObjectName: 
 --- !u!4 &1558312363
 Transform:
   m_ObjectHideFlags: 0

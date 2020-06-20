@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     private CharacterController _characterController;
     private IMover _mover;
     private Rotator _rotator;
+    private Inventory _inventory;
+
+    public Stats Stats { get; private set; }
 
     void Awake()
     {
@@ -16,6 +19,10 @@ public class Player : MonoBehaviour
         _characterController = GetComponent<CharacterController>();
         _mover = new Mover(this);
         _rotator = new Rotator(this);
+        _inventory = GetComponent<Inventory>();
+        
+        Stats = new Stats();
+        Stats.Bind(_inventory);
     }
 
     private void Update()
