@@ -1298,6 +1298,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 325241192063775871, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95f40c16823d7a845adb8ab87bca9068, type: 2}
+    - target: {fileID: 649614092441871421, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95f40c16823d7a845adb8ab87bca9068, type: 2}
+    - target: {fileID: 1184925717856906742, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95f40c16823d7a845adb8ab87bca9068, type: 2}
+    - target: {fileID: 2056737968011379232, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95f40c16823d7a845adb8ab87bca9068, type: 2}
+    - target: {fileID: 2408815803416421164, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95f40c16823d7a845adb8ab87bca9068, type: 2}
     - target: {fileID: 3828915983521015712, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1369,6 +1394,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shotgun (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 9054890785372406998, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95f40c16823d7a845adb8ab87bca9068, type: 2}
+    - target: {fileID: 9212946031982133131, guid: b6e64ccb6a2c45e4c9af85a96efdfc09,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 95f40c16823d7a845adb8ab87bca9068, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6e64ccb6a2c45e4c9af85a96efdfc09, type: 3}
 --- !u!4 &1781563312 stripped

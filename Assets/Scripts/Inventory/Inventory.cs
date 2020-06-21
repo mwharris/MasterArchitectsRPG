@@ -8,18 +8,18 @@ public class Inventory : MonoBehaviour
 {
     public const int DEFAULT_INVENTORY_SIZE = 29;
     
-    public event Action<Item> ActiveItemChanged;
+    public event Action<IItem> ActiveItemChanged;
     public event Action<Item> ItemPickedUp;
     public event Action<int> OnItemChanged;
-    public event Action<Item> ItemEquipped;
-    public event Action<Item> ItemUnEquipped;
+    public event Action<IItem> ItemEquipped;
+    public event Action<IItem> ItemUnEquipped;
 
     [SerializeField] private Transform _rightHand;
     private Transform _itemRoot;
     
     private Item[] _items = new Item[DEFAULT_INVENTORY_SIZE];
 
-    public Item ActiveItem { get; private set; }
+    public IItem ActiveItem { get; private set; }
     
     public List<Item> Items => _items.ToList();    // TODO: Performance issue here
     public int Count => _items.Count(t => t != null);
@@ -65,13 +65,12 @@ public class Inventory : MonoBehaviour
         return null;
     }
 
-    public void Equip(Item item)
+    public void Equip(IItem item)
     {
         // We don't want multiple items equipped at the same time
         UnequipActiveItem();
         // Place this item underneath our right hand
         HandleItemEquipped(item);
-        ActiveItem = item;
         // Invoke the Event if the Event is not null
         ActiveItemChanged?.Invoke(ActiveItem);
         ItemEquipped?.Invoke(item);
@@ -88,17 +87,14 @@ public class Inventory : MonoBehaviour
         }
     }
     
-    private void HandleItemEquipped(Item item)
+    private void HandleItemEquipped(IItem item)
     {
         item.transform.SetParent(_rightHand);
         item.transform.localPosition = Vector3.zero;
         item.transform.localRotation = Quaternion.identity;
         item.transform.localScale = Vector3.one;
-        var collider = item.GetComponent<SphereCollider>();
-        if (collider != null)
-        {
-            collider.enabled = false;
-        }
+        ActiveItem = item;
+        ActiveItem.gameObject.SetActive(true);
     }
 
     public Item GetItemInSlot(int slotIndex)

@@ -19,7 +19,12 @@ public class PlayerInput : MonoBehaviour, IPlayerInput
     {
         Instance = this;
     }
-    
+
+    public void Update()
+    {
+        Tick();
+    }
+
     public void Tick()
     {
         DetectHotkeyInput();
@@ -29,12 +34,16 @@ public class PlayerInput : MonoBehaviour, IPlayerInput
     private void DetectHotkeyInput()
     {
         if (HotkeyPressed == null)
+        {
             return;
+        }
 
         for (int i = 0; i < 9; i++)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+            {
                 HotkeyPressed?.Invoke(i);
+            }
         }
     }
 
