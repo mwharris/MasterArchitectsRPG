@@ -4,6 +4,11 @@ public class Stats
 {
     private Dictionary<StatType, float> _stats = new Dictionary<StatType, float>();
 
+    public Stats()
+    {
+        Add(StatType.MoveSpeed, 5);
+    }
+    
     public void Bind(Inventory inventory)
     {
         // Stats on items only apply when an item is equipped so subscribe to equip events
@@ -48,7 +53,7 @@ public class Stats
     }
 
     public float Get(StatType statType)
-    {
+    { 
         return _stats[statType];
     }
 
